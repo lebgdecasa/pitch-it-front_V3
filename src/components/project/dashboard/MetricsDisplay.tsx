@@ -11,8 +11,12 @@ import {
   CardTitle,
 } from '@/ui/card';
 import {
-  Tooltip
-} from '../../../components/ui/tooltip';
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 import { financialMetrics, FinancialMetric } from '../../../mocks/financial-metrics';
 
 const formatValue = (value: number, prefix?: string, suffix?: string): string => {
@@ -38,12 +42,15 @@ const MetricCard: React.FC<{ metric: FinancialMetric }> = ({ metric }) => {
     <Card>
       <CardHeader className="pb-2">
 
-          <Tooltip content={metric.tooltip}>
-
+          <Tooltip>
+            <TooltipTrigger>
               <CardTitle className="text-sm font-medium text-muted-foreground cursor-help">
-                {metric.label}
+                {metric.tooltip}
               </CardTitle>
-
+            </TooltipTrigger>
+            <TooltipContent>
+              {metric.tooltip}
+            </TooltipContent>
           </Tooltip>
 
       </CardHeader>

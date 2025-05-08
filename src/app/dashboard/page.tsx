@@ -30,20 +30,20 @@ const ProjectCard = ({
     [ProjectStage.PITCH_DECK]: { color: 'bg-amber-100 text-amber-800', label: 'Pitch Deck' },
     [ProjectStage.INVESTOR_READY]: { color: 'bg-green-100 text-green-800', label: 'Investor Ready' },
     [ProjectStage.DEVELOPMENT]: {
-      color: '',
-      label: ''
+      color: 'bg-blue-100 text-gray-800',
+      label: 'Development'
     },
     [ProjectStage.REFINEMENT]: {
-      color: '',
-      label: ''
+      color: 'bg-gray-100 text-gray-800',
+      label: 'Refinement'
     },
     [ProjectStage.DECK_CREATION]: {
-      color: '',
-      label: ''
+      color: 'bg-red-100 text-gray-800',
+      label: 'Deck Creation'
     },
     [ProjectStage.TESTING]: {
-      color: '',
-      label: ''
+      color: 'bg-yellow-100 text-yellow-800',
+      label: 'Testing'
     }
   };
 
@@ -103,7 +103,7 @@ export default function Dashboard() {
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">My Projects</h1>
           <p className="text-gray-600 mt-1">Manage and track your business ideas</p>
         </div>
-        <Button asChild size="lg" className="rounded-full">
+        <Button asChild size="lg" className="rounded-full bg-blue-700 text-white">
           <Link href="/projects/new" className="flex items-center">
             <PlusCircle className="mr-2 h-5 w-5" />
             New Project
@@ -146,7 +146,12 @@ export default function Dashboard() {
               [ProjectStage.IDEATION]: "Ideation Stage",
               [ProjectStage.VALIDATION]: "Validation Stage",
               [ProjectStage.PITCH_DECK]: "Pitch Deck Stage",
-              [ProjectStage.INVESTOR_READY]: "Investor Ready"
+              [ProjectStage.INVESTOR_READY]: "Investor Ready",
+              [ProjectStage.DEVELOPMENT]: "Development Stage",
+              [ProjectStage.REFINEMENT]: "Refinement Stage",
+              [ProjectStage.DECK_CREATION]: "Deck Creation Stage",
+              [ProjectStage.TESTING]: "Testing Stage"
+
             };
 
             return (

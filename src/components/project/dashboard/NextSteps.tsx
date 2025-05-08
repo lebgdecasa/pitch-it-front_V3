@@ -6,7 +6,13 @@ import Link from 'next/link';
 import { MessageSquare, BarChart2, Presentation, Video, Share2, Lock } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import { Card } from '@/ui/card';
-import { Tooltip } from '../../../components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 import { NextStep } from '../../../mocks/next-steps';
 
 interface NextStepsProps {
@@ -44,29 +50,36 @@ export default function NextSteps({ steps, completedSteps, projectId }: NextStep
 
     return (
 
-        <Tooltip content={step.tooltip ?? step.action}>
-            <div className="w-full">
-              {isUnlocked ? (
-                <Button
-                  variant="default"
-                  className="w-full justify-start"
-                  asChild
-                >
-                  <Link href={`/project/${projectId}${step.href}`}>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="w-full">
+                {isUnlocked ? (
+                  <Button
+                    variant="default"
+                    className="w-full justify-start"
+                    asChild
+                  >
+                    <Link href={`/project/${projectId}${step.href}`}>
+                      {buttonContent}
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start opacity-75"
+                    disabled
+                  >
                     {buttonContent}
-                  </Link>
-                </Button>
-              ) : (
-                <Button
-                  variant="outline"
-                  className="w-full justify-start opacity-75"
-                  disabled
-                >
-                  {buttonContent}
-                </Button>
-              )}
-            </div>
-        </Tooltip>
+                  </Button>
+                )}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              {step.tooltip ?? step.action}
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
     );
   };
 

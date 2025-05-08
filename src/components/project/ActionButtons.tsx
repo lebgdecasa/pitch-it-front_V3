@@ -3,7 +3,13 @@
 import React, { useState } from 'react';
 import { Button } from '../../components/ui/button';
 // Corrected import: Only Tooltip is available from your custom component
-import { Tooltip } from '../../components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 import { Users, Activity, FileEdit, Video } from 'lucide-react';
 
 interface ProjectState {
@@ -57,14 +63,14 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ projectId }) => {
       <Button
         variant="outline"
         size="lg"
-        className="w-full mb-3 flex items-center justify-start space-x-3 h-14"
+        className={`w-full mb-3 flex items-center justify-start space-x-3 h-14 ${isLocked ? '' : 'bg-blue-500 text-white'}`}
         onClick={() => handleButtonClick(action)}
         disabled={isLocked}
       >
-        <span className={`${isLocked ? 'text-gray-400' : 'text-primary'}`}>
+        <span className={`${isLocked ? 'text-gray-400' : 'text-white'}`}>
           {icon}
         </span>
-        <span className={`${isLocked ? 'text-gray-400' : 'text-gray-700'}`}>
+        <span className={`${isLocked ? 'text-gray-400' : 'text-white'}`}>
           {label}
         </span>
       </Button>
@@ -72,13 +78,16 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ projectId }) => {
 
     if (isLocked) {
       return (
-        <Tooltip
-          key={label}
-          // Now you can pass JSX directly to the content prop
-          content={<p>Complete earlier steps to unlock</p>}
-        >
-          {button}
-        </Tooltip>
+        <TooltipProvider key={label}>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              {button}
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Complete earlier steps to unlock</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       );
     }
 

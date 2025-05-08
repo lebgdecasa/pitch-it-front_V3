@@ -11,12 +11,12 @@ export const LandingHero = () => {
   const { state } = useAppContext();
   const { user } = state;
   const [isVisible, setIsVisible] = useState(false);
-  
+
   // Handle animations on component mount
   useEffect(() => {
     setIsVisible(true);
   }, []);
-  
+
   // Animation variants for staggered animations
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,7 +27,7 @@ export const LandingHero = () => {
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -45,36 +45,36 @@ export const LandingHero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
         {/* Two-column layout for desktop */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          
+
           {/* Left column: Text content */}
-          <motion.div 
+          <motion.div
             className="flex flex-col space-y-8"
             initial="hidden"
             animate={isVisible ? "visible" : "hidden"}
             variants={containerVariants}
           >
             {/* Badge */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="flex items-center space-x-2 px-4 py-2 bg-blue-100 text-blue-800 rounded-full w-fit">
               <Zap size={18} />
               <span className="text-sm font-medium">AI-Powered Pitch Feedback</span>
             </motion.div>
-            
+
             {/* Headline */}
-            <motion.h1 
+            <motion.h1
               variants={itemVariants}
               className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">Transform</span> your startup pitch with <span className="bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-pink-500">AI insights</span>
             </motion.h1>
-            
+
             {/* Subheadline */}
-            <motion.p 
+            <motion.p
               variants={itemVariants}
               className="text-lg md:text-xl text-gray-700 max-w-xl">
               Get expert-level feedback on your pitch deck before meeting real investors. Our AI simulates VC thinking to help you refine your message and maximize your chances.
             </motion.p>
-            
+
             {/* Feature bullets */}
             <motion.ul variants={itemVariants} className="space-y-4">
               {[
@@ -90,9 +90,9 @@ export const LandingHero = () => {
                 </li>
               ))}
             </motion.ul>
-            
+
             {/* CTA buttons */}
-            <motion.div 
+            <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4"
             >
@@ -102,7 +102,7 @@ export const LandingHero = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
-              
+
               <Button variant="outline" className="px-8 py-6 text-lg font-medium rounded-md border-2 border-indigo-200 hover:border-indigo-300 text-indigo-600 transition-all" asChild>
                 <a href="/how-it-works" className="flex items-center">
                   See How It Works
@@ -111,9 +111,9 @@ export const LandingHero = () => {
               </Button>
             </motion.div>
           </motion.div>
-          
+
           {/* Right column: Dashboard Preview with Floating Elements */}
-          <motion.div 
+          <motion.div
             className="relative hidden lg:block"
             initial={{ opacity: 0, x: 40 }}
             animate={isVisible ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
@@ -121,46 +121,46 @@ export const LandingHero = () => {
           >
             {/* Main dashboard screenshot */}
             <div className="relative bg-white rounded-xl shadow-2xl overflow-hidden border border-gray-100">
-              <Image 
-                src="/landing/hero-dashboard-placeholder.svg" 
-                width={800} 
-                height={500} 
-                alt="Pitch-it Dashboard Preview" 
-                className="w-full h-auto" 
+              <Image
+                src="/assets/landing/hero-dashboard.png"
+                width={800}
+                height={500}
+                alt="Pitch-it Dashboard Preview"
+                className="w-full h-auto"
               />
             </div>
-            
+
             {/* Floating badge elements */}
-            <motion.div 
+            <motion.div
               className="absolute -top-6 -left-6 z-10"
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse' }}
             >
-              <Image 
-                src="/landing/badge-persona.svg" 
-                width={100} 
-                height={100} 
-                alt="AI Analysis" 
-                className="drop-shadow-lg" 
+              <Image
+                src="/assets/landing/badge-persona.png"
+                width={100}
+                height={100}
+                alt="AI Analysis"
+                className="drop-shadow-lg"
               />
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="absolute top-1/4 -right-4 z-10"
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2.5, delay: 0.5, repeat: Infinity, repeatType: 'reverse' }}
             >
-              <Image 
-                src="/landing/badge-score.svg" 
-                width={80} 
-                height={80} 
-                alt="Pitch Score" 
-                className="drop-shadow-lg" 
+              <Image
+                src="/assets/landing/badge-score.png"
+                width={80}
+                height={80}
+                alt="Pitch Score"
+                className="drop-shadow-lg"
               />
             </motion.div>
-            
+
             {/* New Chat feature floating badge */}
-            <motion.div 
+            <motion.div
               className="absolute -top-10 right-10 z-10"
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
@@ -174,23 +174,23 @@ export const LandingHero = () => {
                 </div>
               </div>
             </motion.div>
-            
-            <motion.div 
+
+            <motion.div
               className="absolute bottom-10 -left-10 z-10"
               animate={{ y: [0, 5, 0] }}
               transition={{ duration: 4, delay: 0.2, repeat: Infinity, repeatType: 'reverse' }}
             >
-              <Image 
-                src="/landing/badge-match.svg" 
-                width={180} 
-                height={60} 
-                alt="Investor Match" 
-                className="drop-shadow-lg" 
+              <Image
+                src="/assets/landing/badge-match.png"
+                width={180}
+                height={60}
+                alt="Investor Match"
+                className="drop-shadow-lg"
               />
             </motion.div>
           </motion.div>
         </div>
-        
+
         {/* Key Benefits Section */}
         <motion.div
           className="mt-16 mb-20"
@@ -210,7 +210,7 @@ export const LandingHero = () => {
                 Test your business model with AI-powered feedback before spending time pitching to real investors.
               </p>
             </div>
-            
+
             {/* Benefit 2: Investor-Ready Decks */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
               <div className="bg-blue-100 rounded-full p-3 w-14 h-14 flex items-center justify-center mb-4">
@@ -221,7 +221,7 @@ export const LandingHero = () => {
                 Create professional pitch decks with templates designed to highlight what investors care about most.
               </p>
             </div>
-            
+
             {/* Benefit 3: Interactive Persona Chat */}
             <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
               <div className="bg-blue-100 rounded-full p-3 w-14 h-14 flex items-center justify-center mb-4">
@@ -233,7 +233,7 @@ export const LandingHero = () => {
               </p>
             </div>
           </div>
-          
+
           {/* Cross-linking CTA */}
           <div className="text-center mt-8">
             <a href="#hiw-chat" className="text-deep-blue font-medium inline-flex items-center hover:underline">
@@ -241,9 +241,9 @@ export const LandingHero = () => {
             </a>
           </div>
         </motion.div>
-        
+
         {/* Social Proof Section */}
-        <motion.div 
+        <motion.div
           className="mt-24 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -251,10 +251,10 @@ export const LandingHero = () => {
         >
           <p className="text-gray-500 font-medium mb-8">Trusted by founders from top accelerators</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-            <Image src="/landing/logo-techstars.svg" width={200} height={50} alt="TechStars" className="transition-all hover:opacity-100 opacity-70" />
-            <Image src="/landing/logo-yc.svg" width={200} height={50} alt="Y Combinator" className="transition-all hover:opacity-100 opacity-70" />
-            <Image src="/landing/logo-500startups.svg" width={200} height={50} alt="500 Startups" className="transition-all hover:opacity-100 opacity-70" />
-            <Image src="/landing/logo-angelpad.svg" width={200} height={50} alt="AngelPad" className="transition-all hover:opacity-100 opacity-70" />
+            <Image src="/assets/landing/techstars.svg" width={200} height={50} alt="TechStars" className="transition-all hover:opacity-100 opacity-70" />
+            <Image src="/assets/landing/ycombinator.png" width={200} height={50} alt="Y Combinator" className="transition-all hover:opacity-100 opacity-70" />
+            <Image src="/assets/landing/500startups.png" width={200} height={50} alt="500 Startups" className="transition-all hover:opacity-100 opacity-70" />
+            <Image src="/assets/landing/angelpad.png" width={200} height={50} alt="AngelPad" className="transition-all hover:opacity-100 opacity-70" />
           </div>
         </motion.div>
       </div>

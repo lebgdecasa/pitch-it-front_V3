@@ -11,45 +11,45 @@ import { useReducedMotion } from 'framer-motion';
 export default function HowItWorks() {
   const [isVisible, setIsVisible] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-  
+
   useEffect(() => {
     setIsVisible(true);
   }, []);
-  
+
   const steps = [
     {
       icon: Sparkles,
       title: "Describe your startup",
       description: "Start by creating a project and defining your startup vision. Our AI-powered wizard guides you through the essential questions to build a compelling story.",
-      imageSrc: "/how-it-works/step-wizard.png",
+      imageSrc: "/assets/hiw/step-wizard.png",
       imageAlt: "Startup description wizard interface showing questionnaire form"
     },
     {
       icon: FileText,
       title: "Build your pitch deck",
       description: "Use our professionally designed templates to craft a stunning pitch deck that will captivate investors. Add your content, customize slides, and perfect your message.",
-      imageSrc: "/how-it-works/step-deck-editor.png",
+      imageSrc: "/assets/hiw/step-deck-editor.png",
       imageAlt: "Pitch deck editor interface showing slide templates and customization options"
     },
     {
       icon: Target,
       title: "Match with investors",
       description: "Our platform matches your startup with investors who are most likely to be interested in your industry and stage. Save time by focusing on qualified leads.",
-      imageSrc: "/how-it-works/step-investor-list.png",
+      imageSrc: "/assets/hiw/step-investor-list.png",
       imageAlt: "Investor matching interface showing recommended investors for your startup"
     },
     {
       icon: BarChart,
       title: "Analyze engagement data",
       description: "Monitor who views your pitch, how long they spend on each slide, and what aspects of your business generate the most interest.",
-      imageSrc: "/how-it-works/step-analytics.png",
+      imageSrc: "/assets/hiw/step-analytics.png",
       imageAlt: "Analytics dashboard showing pitch deck engagement metrics and investor activity"
     },
     {
       icon: MessageCircle,
       title: "Chat with Personas",
       description: "Open a dedicated chat room with any persona, explore objections, refine positioning and capture insights that feed directly back into your deck.",
-      imageSrc: "/assets/hiw/step-chat-placeholder.png",
+      imageSrc: "/assets/hiw/chat.png",
       imageAlt: "Screenshot of interactive persona chat interface",
       id: "hiw-chat"
     },
@@ -61,7 +61,7 @@ export default function HowItWorks() {
       imageAlt: "Communication interface for connecting with interested investors"
     }
   ];
-  
+
   // Animation variants
   const containerVariants = {
     hidden: {},
@@ -71,7 +71,7 @@ export default function HowItWorks() {
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { y: shouldReduceMotion ? 0 : 20, opacity: 0 },
     visible: {
@@ -87,27 +87,26 @@ export default function HowItWorks() {
   const testimonials = [
     {
       quote: "Pitch-it helped us raise our seed round in just 3 weeks. The investor matching feature connected us to VCs who were genuinely interested in our space.",
-      author: "Sarah Chen",
+      author: "Alex Chen",
       position: "CEO, TechSprint",
       raised: "$1.2M Seed",
-      avatar: "/testimonials/avatar-sarah.png"
+      avatar: "/assets/avatars/alex-chen.jpg"
     },
     {
       quote: "The analytics provided valuable insights into what investors cared about most in our business. We refined our pitch based on that data and closed our round.",
       author: "Marcus Johnson",
       position: "Co-founder, Virtu Health",
       raised: "$3.5M Series A",
-      avatar: "/testimonials/avatar-marcus.png"
+      avatar: "/assets/avatars/marcus-williams.jpg"
     },
     {
       quote: "As a solo founder, Pitch-it gave me the tools and guidance I needed to create a professional pitch deck that stood out to investors.",
       author: "Elena Rodriguez",
       position: "Founder, EcoPackage",
-      raised: "$750K Pre-seed",
-      avatar: "/testimonials/avatar-elena.png"
+      avatar: "/assets/avatars/sophie-laurent.jpg"
     }
   ];
-  
+
   // Function to create placeholder image URL with specified dimensions and text
   const createPlaceholderImage = (width: number, height: number, text: string, bgColor: string = "0E3A8C") => {
     // Create a placeholder image URL using a placeholder service
@@ -121,7 +120,7 @@ export default function HowItWorks() {
         <div className="absolute inset-0 opacity-10 bg-grid-white"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -129,7 +128,7 @@ export default function HowItWorks() {
             >
               Fundraising, simplified.
             </motion.h1>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -138,29 +137,21 @@ export default function HowItWorks() {
               Pitch-it helps founders create compelling pitch decks, connect with the right investors,
               and close funding rounds faster with data-driven insights.
             </motion.p>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4"
             >
-              <Button 
-                asChild 
-                size="lg" 
+              <Button
+                asChild
+                size="lg"
                 className="bg-white text-deep-blue hover:bg-blue-50 font-medium px-8 py-6 text-lg contrast-[1.1]"
                 aria-label="Sign up for a free account"
               >
-                <Link href="/signup">Get Started Free</Link>
+                <Link href="/auth">Get Started Free</Link>
               </Button>
-              <Button 
-                asChild 
-                size="lg" 
-                variant="outline" 
-                className="text-white border-white hover:bg-blue-700 font-medium px-8 py-6 text-lg"
-                aria-label="View product demo"
-              >
-                <Link href="/projects" target="_blank" rel="noopener">View Demo</Link>
-              </Button>
+
             </motion.div>
           </div>
         </div>
@@ -178,7 +169,7 @@ export default function HowItWorks() {
             </p>
           </div>
 
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={containerVariants}
             initial="hidden"
@@ -187,22 +178,22 @@ export default function HowItWorks() {
             {steps.map((step, index) => {
               const Icon = step.icon;
               // Create placeholder image URLs if no real images are available
-              const imageUrl = step.imageSrc ? step.imageSrc : 
+              const imageUrl = step.imageSrc ? step.imageSrc :
                 createPlaceholderImage(900, 600, `UI for ${step.title}`, "0E3A8C");
-              
+
               return (
-                <motion.div 
-                  key={index} 
+                <motion.div
+                  key={index}
                   variants={itemVariants}
                   className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
                 >
                   <div className="h-[240px] overflow-hidden bg-gray-100 relative">
-                    <Image 
-                      src={imageUrl} 
-                      alt={step.imageAlt} 
+                    <Image
+                      src={imageUrl}
+                      alt={step.imageAlt}
                       width={900}
                       height={600}
-                      className="w-full h-full object-cover" 
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="p-6">
@@ -223,8 +214,8 @@ export default function HowItWorks() {
       <section className="py-12 bg-gradient-to-r from-deep-blue to-blue-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-            <motion.div 
-              className="px-4" 
+            <motion.div
+              className="px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
@@ -232,8 +223,8 @@ export default function HowItWorks() {
               <p className="text-4xl md:text-5xl font-bold text-white mb-2">$100M+</p>
               <p className="text-blue-200 text-lg">Funding raised</p>
             </motion.div>
-            <motion.div 
-              className="px-4" 
+            <motion.div
+              className="px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
@@ -241,8 +232,8 @@ export default function HowItWorks() {
               <p className="text-4xl md:text-5xl font-bold text-white mb-2">3,200+</p>
               <p className="text-blue-200 text-lg">Startups</p>
             </motion.div>
-            <motion.div 
-              className="px-4" 
+            <motion.div
+              className="px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
@@ -250,8 +241,8 @@ export default function HowItWorks() {
               <p className="text-4xl md:text-5xl font-bold text-white mb-2">4,800+</p>
               <p className="text-blue-200 text-lg">Investors</p>
             </motion.div>
-            <motion.div 
-              className="px-4" 
+            <motion.div
+              className="px-4"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.4 }}
@@ -267,7 +258,7 @@ export default function HowItWorks() {
       <section className="py-16 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <motion.h2 
+            <motion.h2
               className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -276,7 +267,7 @@ export default function HowItWorks() {
             >
               Powerful Features for Founders
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="text-xl text-gray-600 max-w-3xl mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -288,7 +279,7 @@ export default function HowItWorks() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
-            <motion.div 
+            <motion.div
               className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300"
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -301,8 +292,8 @@ export default function HowItWorks() {
                 </div>
                 <h3 className="text-2xl font-semibold mb-4">AI-Powered Pitch Creation</h3>
                 <p className="text-gray-600 mb-6">
-                  Our AI assistant helps you craft compelling narratives about your business, 
-                  generates financial projections, and suggests the right content for each slide 
+                  Our AI assistant helps you craft compelling narratives about your business,
+                  generates financial projections, and suggests the right content for each slide
                   based on your startup&apos;s stage and industry.
                 </p>
                 <ul className="space-y-4">
@@ -328,7 +319,7 @@ export default function HowItWorks() {
               </div>
             </motion.div>
 
-            <motion.div 
+            <motion.div
               className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -341,7 +332,7 @@ export default function HowItWorks() {
                 </div>
                 <h3 className="text-2xl font-semibold mb-4">Investor Matching & Analytics</h3>
                 <p className="text-gray-600 mb-6">
-                  Connect with investors who are most likely to fund your startup. Track engagement 
+                  Connect with investors who are most likely to fund your startup. Track engagement
                   with your pitch and understand what aspects of your business generate the most interest.
                 </p>
                 <ul className="space-y-4">
@@ -374,7 +365,7 @@ export default function HowItWorks() {
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
-            <motion.h2 
+            <motion.h2
               className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -383,7 +374,7 @@ export default function HowItWorks() {
             >
               Success Stories
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="text-xl text-gray-600 max-w-3xl mx-auto"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
@@ -397,12 +388,12 @@ export default function HowItWorks() {
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => {
               // Use placeholder image URL for avatar if the local image doesn't exist
-              const avatarUrl = testimonial.avatar || 
+              const avatarUrl = testimonial.avatar ||
                 createPlaceholderImage(64, 64, testimonial.author.charAt(0), "0E3A8C");
-                
+
               return (
-                <motion.div 
-                  key={index} 
+                <motion.div
+                  key={index}
                   className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-all duration-300"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -420,9 +411,9 @@ export default function HowItWorks() {
                     </div>
                     <div className="flex items-center">
                       <div className="mr-4">
-                        <Image 
-                          src={avatarUrl} 
-                          alt={`${testimonial.author}'s avatar`} 
+                        <Image
+                          src={avatarUrl}
+                          alt={`${testimonial.author}'s avatar`}
                           width={48}
                           height={48}
                           className="h-12 w-12 rounded-full bg-gray-200 object-cover"
@@ -451,9 +442,9 @@ export default function HowItWorks() {
       <section className="py-16 md:py-24 bg-gradient-to-r from-blue-900 to-deep-blue relative overflow-hidden">
         {/* Background pattern */}
         <div className="absolute inset-0 opacity-10 bg-grid-white pointer-events-none"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative">
-          <motion.h2 
+          <motion.h2
             className="text-3xl md:text-5xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -462,7 +453,7 @@ export default function HowItWorks() {
           >
             Ready to Accelerate Your Fundraising?
           </motion.h2>
-          <motion.p 
+          <motion.p
             className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -477,13 +468,13 @@ export default function HowItWorks() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <Button 
-              asChild 
-              size="lg" 
+            <Button
+              asChild
+              size="lg"
               className="bg-white text-deep-blue hover:bg-blue-50 px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
               <Link href="/signup" className="flex items-center font-medium">
-                Get Started Free 
+                Get Started Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
             </Button>

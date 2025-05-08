@@ -68,7 +68,7 @@ export default function Projects() {
               [ProjectStage.DECK_CREATION]: { color: 'bg-orange-100 text-orange-800', label: 'Deck Creation Stage' },
               [ProjectStage.PITCH_DECK]: { color: 'bg-amber-100 text-amber-800', label: 'Pitch Deck Stage' },
               [ProjectStage.INVESTOR_READY]: { color: 'bg-green-100 text-green-800', label: 'Investor Ready' },
-              [ProjectStage.DEVELOPMENT]: { color: 'bg-gray-100 text-gray-800', label: 'Development Stage' },
+              [ProjectStage.DEVELOPMENT]: { color: 'bg-purple-100 text-purple-800 text-gray-800', label: 'Development Stage' },
               [ProjectStage.REFINEMENT]: { color: 'bg-teal-100 text-teal-800', label: 'Refinement Stage' },
               [ProjectStage.TESTING]: {
                 color: '',

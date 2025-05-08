@@ -22,7 +22,7 @@ export interface FinancialMetrics {
 export const financialMetrics: FinancialMetrics = {
   cac: {
     value: 150,
-    label: 'Customer Acquisition Cost',
+    label: 'CAC',
     tooltip: 'Average cost to acquire a new customer',
     prefix: '$',
     trend: 'down',
@@ -30,7 +30,7 @@ export const financialMetrics: FinancialMetrics = {
   },
   cltv: {
     value: 750,
-    label: 'Customer Lifetime Value',
+    label: 'CLTV',
     tooltip: 'Average revenue expected from a customer throughout the business relationship',
     prefix: '$',
     trend: 'up',
@@ -46,7 +46,7 @@ export const financialMetrics: FinancialMetrics = {
   },
   tam: {
     value: 5200000000,
-    label: 'Total Addressable Market',
+    label: 'TAM',
     tooltip: 'Total market demand for your product or service in dollar value',
     prefix: '$',
     suffix: 'B',
@@ -55,7 +55,7 @@ export const financialMetrics: FinancialMetrics = {
   },
   potentialEarnings: {
     value: 3120000000,
-    label: 'Potential Earnings',
+    label: 'PEs',
     tooltip: 'Estimated potential earnings based on TAM × (CLTV - CAC)',
     prefix: '$',
     suffix: 'B',
@@ -64,7 +64,7 @@ export const financialMetrics: FinancialMetrics = {
   },
   marketGrowthRate: {
     value: 23.5,
-    label: 'Market Growth Rate',
+    label: 'MGR',
     tooltip: 'Annual growth rate of the target market',
     suffix: '%',
     trend: 'up',
@@ -72,7 +72,7 @@ export const financialMetrics: FinancialMetrics = {
   },
   projectedMarketShare: {
     value: 8.5,
-    label: 'Projected Market Share',
+    label: 'PMS',
     tooltip: 'Estimated market share that can be captured within 5 years',
     suffix: '%',
     trend: 'up',

@@ -21,7 +21,7 @@ export const Sidebar = () => {
   return (
     <aside className="hidden lg:flex flex-col bg-white border-r border-gray-200 w-64 fixed h-screen pt-5">
       <div className="px-6 mb-6">
-        <Link href="/" className="flex items-center">
+        <Link href="/dashboard" className="flex items-center">
           <span className="text-xl font-bold text-deep-blue">Pitch-it</span>
         </Link>
       </div>
@@ -40,20 +40,20 @@ export const Sidebar = () => {
           )}
         </div>
       </div>
-      
+
       {/* Main Navigation */}
       <nav className="flex-1 px-4 space-y-1">
         {navItems.map((item, index) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
-          
+
           return (
             <Link
               key={index}
               href={item.href}
               className={`flex items-center px-2 py-3 rounded-md text-sm font-medium ${
-                isActive 
-                  ? 'bg-blue-50 text-deep-blue' 
+                isActive
+                  ? 'bg-blue-50 text-deep-blue'
                   : 'text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -63,7 +63,7 @@ export const Sidebar = () => {
           );
         })}
       </nav>
-      
+
       {/* Back to Projects */}
       <div className="px-4 py-4 border-t border-gray-200">
         <Link

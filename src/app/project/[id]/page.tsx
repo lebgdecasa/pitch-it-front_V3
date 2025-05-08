@@ -15,6 +15,7 @@ import { MetricsBadges } from '../../../components/client-components/project/met
 import PersonaCard from '../../../components/client-components/persona/PersonaCard';
 import PersonaModal from '../../../components/client-components/persona/PersonaModal';
 import { mockChatPersonas } from '../../../mocks';
+import { financialMetrics } from '../../../mocks/financial-metrics';
 
 // Component for showing pitch details in a clean way
 const PitchDetail = ({ label, value }: { label: string; value: string }) => (
@@ -89,7 +90,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       description: 'Validate your idea and test assumptions.'
     },
     [ProjectStage.DEVELOPMENT]: {
-      color: 'bg-purple-100 text-purple-800', // Note: dashboard uses purple for validation, consider if this should be different
+      color: 'bg-blue-100 text-gray-800', // Note: dashboard uses purple for validation, consider if this should be different
       label: 'Development',
       description: 'Develop and refine your business plan.'
     },
@@ -197,9 +198,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           {/* Metrics Badges */}
           <div className="mb-6">
             <MetricsBadges
-              cac={250}
-              cltv={2800}
-              ratio={11.2}
+              cac={financialMetrics.cac}
+              cltv={financialMetrics.cltv}
+              ratio={financialMetrics.cacCltvRatio}
+              tam={financialMetrics.tam}
+              potentialEarnings={financialMetrics.potentialEarnings}
+              marketGrowthRate={financialMetrics.marketGrowthRate}
+              projectedMarketShare={financialMetrics.projectedMarketShare}
             />
           </div>
 

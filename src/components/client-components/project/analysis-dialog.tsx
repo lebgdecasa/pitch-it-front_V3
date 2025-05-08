@@ -11,7 +11,13 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../../ui/dialog';
 import { Button } from '../../ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../ui/tabs';
-import { Tooltip} from '../../ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 import { cn } from '../../../lib/utils';
 
 // Define the types for our analysis data
@@ -104,21 +110,24 @@ export default function AnalysisDialog({ projectId, projectName, analysis }: Ana
 
   return (
     <>
-        <Tooltip content={''}>
-            <Button
-              variant="outline"
-              className="w-full flex items-center justify-center mb-3"
-              onClick={() => setOpen(true)}
-            >
-              <ChartBarIcon className="h-5 w-5 mr-2" />
-              <span>View Netnographic Analysis</span>
-              <ChevronRightIcon className="h-4 w-4 ml-1" />
-            </Button>
-
-
-            <p>Analyze data from social media and online communities</p>
-
-        </Tooltip>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <Button
+                variant="outline"
+                className="w-full flex items-center justify-center mb-3"
+                onClick={() => setOpen(true)}
+              >
+                <ChartBarIcon className="h-5 w-5 mr-2" />
+                <span>View Netnographic Analysis</span>
+                <ChevronRightIcon className="h-4 w-4 ml-1" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Analyze data from social media and online communities</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
 
       <Dialog open={open} onOpenChange={setOpen}>
