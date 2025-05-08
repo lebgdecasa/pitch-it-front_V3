@@ -5,73 +5,114 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ChevronLeft, Plus, Image, FileText, Save, Trash } from 'lucide-react';
 import { toast } from 'react-hot-toast';
-import { projectData } from '../../../../../mocks';
+import { initialMockProjects } from '../../../../../mocks'; // Updated import
+import { Project, PitchDeckSlide } from '../../../../../types'; // Import necessary types
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { DndProvider, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { InsightsSidePanel } from '@/components/project/deck/InsightsSidePanel';
+import { v4 as uuidv4 } from 'uuid'; // For generating unique string IDs
 
 export default function EditDeckPage() {
-  const { id } = useParams();
+  const { id: projectId } = useParams(); // Renamed for clarity
   const router = useRouter();
-  const project = [projectData].find((p: { id: string | string[]; }) => p.id === id) || projectData;
 
-  // Mock data for existing deck
-  const [deckTitle, setDeckTitle] = useState('Pitch Deck for Investors');
-  const [slides, setSlides] = useState([
-    { id: 1, title: 'Problem Statement', content: 'Our target customers struggle with X problem that impacts their ability to achieve Y.', notes: '', order: 1 },
-    { id: 2, title: 'Solution', content: 'Our product addresses this by providing A, B, and C features that help customers overcome their challenges.', notes: '', order: 2 },
-    { id: 3, title: 'Market Opportunity', content: 'The market size for this solution is estimated at $X billion with a Y% annual growth rate.', notes: '', order: 3 },
-    { id: 4, title: 'Business Model', content: 'We monetize through a subscription model with an average customer value of $X per year.', notes: '', order: 4 },
-    { id: 5, title: 'Ask', content: 'We are raising $X to achieve Y milestones over the next Z months.', notes: '', order: 5 }
-  ]);
-  const [activeSlideId, setActiveSlideId] = useState(1);
+  const [project, setProject] = useState<Project | null>(null);
+  const [deckTitle, setDeckTitle] = useState('');
+  const [slides, setSlides] = useState<PitchDeckSlide[]>([]);
+  const [activeSlideId, setActiveSlideId] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [slideToDelete, setSlideToDelete] = useState<number | null>(null);
+  const [slideToDelete, setSlideToDelete] = useState<string | null>(null);
   const [insightsPanelCollapsed, setInsightsPanelCollapsed] = useState(false);
   const [hasEditedDeck, setHasEditedDeck] = useState(false);
 
-  const activeSlide = slides.find(slide => slide.id === activeSlideId) || slides[0];
+  useEffect(() => {
+    const foundProject = initialMockProjects.find(p => p.id === projectId);
+    if (foundProject) {
+      setProject(foundProject);
+      setDeckTitle(foundProject.pitchDeck?.slides?.[0]?.content?.title ? `${foundProject.name} - Deck` : 'New Pitch Deck'); // Or a specific deck title field
 
-  const handleSlideContentChange = (content: string) => {
+      if (foundProject.pitchDeck && foundProject.pitchDeck.slides && foundProject.pitchDeck.slides.length > 0) {
+        const initializedSlides = foundProject.pitchDeck.slides.map(slide => ({
+          ...slide,
+          id: slide.id || uuidv4(), // Ensure ID is a string
+          notes: slide.notes || '',
+          content: {
+            title: slide.content?.title || `Slide ${slide.order}`,
+            description: slide.content?.description || '', // Ensure description exists
+            ...slide.content,
+          }
+        })).sort((a, b) => a.order - b.order);
+        setSlides(initializedSlides);
+        setActiveSlideId(initializedSlides[0]?.id || null);
+      } else {
+        // Initialize with a default slide if no deck or no slides exist
+        const defaultSlideId = uuidv4();
+        const defaultSlides: PitchDeckSlide[] = [{
+          id: defaultSlideId,
+          type: 'custom',
+          content: { title: 'Welcome Slide', description: 'Start building your presentation.' },
+          notes: '',
+          order: 1
+        }];
+        setSlides(defaultSlides);
+        setActiveSlideId(defaultSlideId);
+        setDeckTitle(foundProject.name ? `${foundProject.name} - New Deck` : 'New Pitch Deck');
+      }
+    } else {
+      toast.error("Project not found!");
+      // router.push('/'); // Or a dedicated error page
+    }
+  }, [projectId, router]);
+
+  const activeSlide = slides.find(slide => slide.id === activeSlideId);
+
+  const handleSlideContentChange = (description: string) => {
+    if (!activeSlideId) return;
     setHasEditedDeck(true);
     setSlides(slides.map(slide =>
-      slide.id === activeSlideId ? { ...slide, content } : slide
+      slide.id === activeSlideId ? {
+        ...slide,
+        content: { ...slide.content, description }
+      } : slide
     ));
   };
 
   const handleSlideNotesChange = (notes: string) => {
+    if (!activeSlideId) return;
     setHasEditedDeck(true);
     setSlides(slides.map(slide =>
       slide.id === activeSlideId ? { ...slide, notes } : slide
     ));
   };
 
-  const handleSlideSelect = (id: number) => {
+  const handleSlideSelect = (id: string) => {
     setActiveSlideId(id);
   };
 
   const handleAddSlide = () => {
-    const newId = Math.max(...slides.map(s => s.id)) + 1;
-    const newSlide = {
+    const newId = uuidv4();
+    const newOrder = slides.length > 0 ? Math.max(...slides.map(s => s.order)) + 1 : 1;
+    const newSlide: PitchDeckSlide = {
       id: newId,
-      title: `New Slide`,
-      content: '',
+      type: 'custom', // Default type
+      content: { title: `New Slide ${newOrder}`, description: '' },
       notes: '',
-      order: slides.length + 1
+      order: newOrder
     };
     setSlides([...slides, newSlide]);
     setActiveSlideId(newId);
     setHasEditedDeck(true);
   };
 
-  const handleDeleteSlide = (id: number) => {
+  const handleDeleteSlide = (id: string) => {
     setSlideToDelete(id);
     setDeleteDialogOpen(true);
   };
 
   const confirmDeleteSlide = () => {
+    if (!slideToDelete) return;
     if (slides.length <= 1) {
       toast.error("You can't delete the last slide");
       setDeleteDialogOpen(false);
@@ -86,9 +127,8 @@ export default function EditDeckPage() {
 
     setSlides(newSlides);
 
-    // If we deleted the active slide, select the first slide
     if (activeSlideId === slideToDelete) {
-      setActiveSlideId(newSlides[0]?.id);
+      setActiveSlideId(newSlides[0]?.id || null);
     }
 
     setDeleteDialogOpen(false);
@@ -96,10 +136,13 @@ export default function EditDeckPage() {
     setHasEditedDeck(true);
   };
 
-  const handleSlideTitleChange = (id: number, newTitle: string) => {
+  const handleSlideTitleChange = (id: string, newTitle: string) => {
     setHasEditedDeck(true);
     setSlides(slides.map(slide =>
-      slide.id === id ? { ...slide, title: newTitle } : slide
+      slide.id === id ? {
+        ...slide,
+        content: { ...slide.content, title: newTitle }
+      } : slide
     ));
   };
 
@@ -108,19 +151,33 @@ export default function EditDeckPage() {
       toast.error('Please enter a deck title');
       return;
     }
+    if (!project) {
+      toast.error('Project data not loaded.');
+      return;
+    }
 
     setIsSaving(true);
+    // Here you would typically dispatch to a global state/context or send to a backend
+    // For example:
+    // dispatch({ type: 'UPDATE_PITCH_DECK', payload: { projectId: project.id, pitchDeck: { slides } } });
 
-    // Simulate saving with a delay
+    console.log('Saving deck:', { title: deckTitle, slides });
+
     setTimeout(() => {
       setIsSaving(false);
       toast.success('Pitch deck successfully updated!');
-      router.push(`/project/${id}/deck`);
+      // Potentially update the global state before navigating
+      // For now, just navigate back
+      router.push(`/project/${project.id}/deck`);
     }, 1000);
   };
 
   const handleBack = () => {
-    router.push(`/project/${id}/deck`);
+    if (project) {
+      router.push(`/project/${project.id}/deck`);
+    } else {
+      router.push('/'); // Fallback if project ID is not available
+    }
   };
 
   const toggleInsightsPanel = () => {
@@ -132,7 +189,8 @@ export default function EditDeckPage() {
     const [{ isOver }, drop] = useDrop(() => ({
       accept: 'INSIGHT',
       drop: (item: { insightContent: string }) => {
-        const currentNotes = activeSlide.notes;
+        if (!activeSlide) return;
+        const currentNotes = activeSlide.notes || '';
         const newNotes = currentNotes
           ? `${currentNotes}\n\n${item.insightContent}`
           : item.insightContent;
@@ -147,11 +205,12 @@ export default function EditDeckPage() {
 
     return (
       <div
-        ref={(node) => { drop(node); }}
+        ref={(node) => { drop(node); }} // Ensure compatibility with LegacyRef<HTMLDivElement>
         className={`p-6 min-h-[400px] ${isOver ? 'bg-blue-50 border-2 border-blue-300 border-dashed' : ''}`}
       >
         <div className="flex flex-col h-full space-y-4">
           <div className="flex items-center mb-4 space-x-2">
+            {/* These buttons are placeholders for future functionality */}
             <button className="p-2 rounded hover:bg-gray-100" title="Add text">
               <FileText size={18} />
             </button>
@@ -162,13 +221,13 @@ export default function EditDeckPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Slide Content
+              Slide Content (Description)
             </label>
             <textarea
-              value={activeSlide?.content || ''}
+              value={activeSlide?.content?.description || ''}
               onChange={(e) => handleSlideContentChange(e.target.value)}
               className="w-full p-3 border border-gray-200 rounded-md focus:outline-none focus:border-blue-500 resize-none min-h-[200px]"
-              placeholder="Enter content for this slide..."
+              placeholder="Enter main content (description) for this slide..."
             />
           </div>
 
@@ -188,6 +247,14 @@ export default function EditDeckPage() {
       </div>
     );
   };
+
+  if (!project && !slides.length) {
+      return (
+          <div className="flex justify-center items-center h-screen">
+              Loading project data or project not found...
+          </div>
+      );
+  }
 
   return (
     <DndProvider backend={HTML5Backend}>
@@ -225,15 +292,15 @@ export default function EditDeckPage() {
               >
                 <div className="flex items-center justify-between">
                   <div
-                    className="flex-1 flex items-center"
+                    className="flex-1 flex items-center mr-2 overflow-hidden" // Added mr-2 and overflow-hidden
                     onClick={() => handleSlideSelect(slide.id)}
                   >
                     <span className="text-gray-500 text-sm mr-2">{slide.order}.</span>
-                    <p className="font-medium truncate">{slide.title}</p>
+                    <p className="font-medium truncate">{slide.content?.title || 'Untitled Slide'}</p>
                   </div>
                   <button
                     onClick={() => handleDeleteSlide(slide.id)}
-                    className="p-1 rounded hover:text-red-600"
+                    className="p-1 rounded hover:text-red-600 flex-shrink-0" // Added flex-shrink-0
                   >
                     <Trash size={14} />
                   </button>
@@ -249,22 +316,24 @@ export default function EditDeckPage() {
           <div className="bg-white border-b border-gray-200 p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center">
-                <div className="flex items-center">
-                  <input
-                    value={deckTitle}
-                    onChange={(e) => {
-                      setDeckTitle(e.target.value);
-                      setHasEditedDeck(true);
-                    }}
-                    className="text-xl font-bold focus:outline-none border-b border-transparent focus:border-gray-300"
-                    placeholder="Enter deck title"
-                  />
-                </div>
+                <input
+                  value={deckTitle}
+                  onChange={(e) => {
+                    setDeckTitle(e.target.value);
+                    setHasEditedDeck(true);
+                  }}
+                  className="text-xl font-bold focus:outline-none border-b border-transparent focus:border-gray-300"
+                  placeholder="Enter deck title"
+                />
               </div>
               <button
                 onClick={handleSaveDeck}
-                disabled={isSaving}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition flex items-center"
+                disabled={isSaving || !hasEditedDeck} // Disable if not edited
+                className={`px-4 py-2 rounded-md transition flex items-center ${
+                  isSaving || !hasEditedDeck
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
               >
                 {isSaving ? (
                   <>Saving...</>
@@ -280,22 +349,27 @@ export default function EditDeckPage() {
 
           {/* Editor */}
           <div className="flex-1 bg-gray-50 p-8 overflow-y-auto">
-            <div className="mx-auto max-w-3xl bg-white shadow-md rounded-lg overflow-hidden">
-              {/* Slide Header */}
-              <div className="border-b border-gray-200 p-4">
-                <input
-                  value={activeSlide?.title || ''}
-                  onChange={(e) => {
-                    handleSlideTitleChange(activeSlide.id, e.target.value);
-                  }}
-                  className="text-lg font-semibold w-full focus:outline-none border-b border-transparent focus:border-gray-300"
-                  placeholder="Slide Title"
-                />
+            {activeSlide ? (
+              <div className="mx-auto max-w-3xl bg-white shadow-md rounded-lg overflow-hidden">
+                {/* Slide Header */}
+                <div className="border-b border-gray-200 p-4">
+                  <input
+                    value={activeSlide.content?.title || ''}
+                    onChange={(e) => {
+                      handleSlideTitleChange(activeSlide.id, e.target.value);
+                    }}
+                    className="text-lg font-semibold w-full focus:outline-none border-b border-transparent focus:border-gray-300"
+                    placeholder="Slide Title"
+                  />
+                </div>
+                <SlideContentArea />
               </div>
-
-              {/* Slide Content Area */}
-              <SlideContentArea />
-            </div>
+            ) : (
+              <div className="text-center text-gray-500">
+                <p>No slide selected or no slides available.</p>
+                <p>Click 'Add Slide' to begin.</p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -303,6 +377,7 @@ export default function EditDeckPage() {
         <InsightsSidePanel
           isCollapsed={insightsPanelCollapsed}
           onToggleCollapse={toggleInsightsPanel}
+          // Pass any other necessary props related to insights here
         />
 
         {/* Delete Confirmation Dialog */}

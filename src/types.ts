@@ -1,3 +1,4 @@
+// src/types.ts
 // User Types
 export interface User {
   id: string;
@@ -22,10 +23,13 @@ export interface Pitch {
 
 // Pitch Deck Types
 export interface PitchDeckSlide {
-  id: string;
-  type: 'cover' | 'problem' | 'solution' | 'market' | 'product' | 'traction' | 'team' | 'competition' | 'business-model' | 'financials' | 'ask' | 'contact';
+  id: string; // Should be string for UUIDs
+  type: 'cover' | 'problem' | 'solution' | 'market' | 'product' | 'traction' | 'team' | 'competition' | 'business-model' | 'financials' | 'ask' | 'contact' | 'custom'; // Added 'custom' for flexibility
   content: Record<string, string>;
+  notes?: string; // Added for presenter notes
+  order: number; // Keep order for rendering
 }
+
 
 export interface PitchDeck {
   slides: PitchDeckSlide[];

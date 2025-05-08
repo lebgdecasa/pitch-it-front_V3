@@ -35,7 +35,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         title: 'SmartMarketer',
         subtitle: 'AI-Powered Marketing for Small Businesses',
         presenter: 'Jane Smith, Founder & CEO'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -46,7 +47,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         point1: 'Marketing tools are too expensive',
         point2: 'Require specialized knowledge',
         point3: 'Time-consuming to manage'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -57,7 +59,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         point1: 'Automated content creation',
         point2: 'Smart audience targeting',
         point3: 'Performance analytics'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -68,7 +71,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         stat1: '32.5M small businesses in the US',
         stat2: '$15B+ market for SMB marketing tools',
         stat3: '78% of small businesses struggle with marketing'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -79,7 +83,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         feature2: 'Campaign Automation',
         feature3: 'Customer Insights Dashboard',
         description: 'Our platform handles the entire marketing funnel from content creation to conversion tracking.'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -90,7 +95,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         metric2: '35% monthly growth',
         metric3: '89% customer retention',
         description: 'Strong early adoption with minimal marketing spend.'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -101,7 +107,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         member2: 'John Doe, CTO (ex-Amazon)',
         member3: 'Sarah Lee, CMO (ex-Hubspot)',
         description: 'Combined 25+ years in marketing tech and AI.'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -112,7 +119,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         competitor2: 'Mailchimp: Email-centric, limited AI capabilities',
         competitor3: 'Constant Contact: Outdated technology, poor automation',
         advantage: 'We offer enterprise-level AI marketing at SMB-friendly prices and complexity.'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -123,7 +131,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         pricing2: 'Pro: $79/mo - Advanced AI features & multiple campaigns',
         pricing3: 'Business: $199/mo - Full automation suite & white labeling',
         projection: 'Projected $1.2M ARR by end of year'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -134,7 +143,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         projection: 'Year 1: $1.2M ARR',
         projection2: 'Year 3: $10M+ ARR',
         efficiency: 'CAC: $250, LTV: $2,800, 11x LTV:CAC ratio'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -146,7 +156,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         use2: 'Marketing: Scale customer acquisition',
         use3: 'Sales: Build B2B sales team',
         timeline: '18-month runway to Series A metrics'
-      }
+      },
+      order: 0
     },
     {
       id: uuidv4(),
@@ -157,7 +168,8 @@ export const createMockPitchDeck = (): PitchDeck => {
         email: 'jane@smartmarketer.ai',
         phone: '(555) 123-4567',
         website: 'www.smartmarketer.ai'
-      }
+      },
+      order: 0
     }
   ];
 
@@ -306,7 +318,8 @@ export const initialMockProjects: Project[] = [
             title: 'EduSpark',
             subtitle: 'Making Learning Fun Again',
             presenter: 'Jane Smith, Founder'
-          }
+          },
+          order: 0
         },
         {
           id: uuidv4(),
@@ -317,7 +330,8 @@ export const initialMockProjects: Project[] = [
             point1: 'Low retention rates',
             point2: 'Lack of personalization',
             point3: 'Decreasing test scores nationally'
-          }
+          },
+          order: 0
         },
         {
           id: uuidv4(),
@@ -328,7 +342,8 @@ export const initialMockProjects: Project[] = [
             point1: 'Adaptive learning paths',
             point2: 'Game-based rewards and achievements',
             point3: 'Data-driven insights for teachers and parents'
-          }
+          },
+          order: 0
         }
       ]
     }
@@ -351,7 +366,153 @@ export const initialMockProjects: Project[] = [
       uniqueSellingPoint: "Authenticity-preserving AI that enhances the original voice for natural, emotional multilingual dubbing, eliminating the robotic sound common in traditional tools.",
       marketingStrategy: "Collaborations with influencers, targeted advertising on creator platforms, showcasing side-by-side demos of dubbed vs. original voice, and partnerships with wellness and educational content networks."
     },
-    pitchDeck: createMockPitchDeck(),
+    pitchDeck: {
+      slides: [
+        {
+          id: uuidv4(),
+          type: 'cover',
+          content: {
+            title: 'EpiDub',
+            subtitle: 'Authentic AI Dubbing for Global Creators',
+            presenter: 'Karim Amor, Founder & CEO'
+          },
+          order: 1
+        },
+        {
+          id: uuidv4(),
+          type: 'problem',
+          content: {
+            title: 'The Problem',
+            description: 'Content creators and wellness educators struggle to expand globally without losing their authentic voice and emotional connection.',
+            point1: 'Traditional dubbing loses original emotion',
+            point2: 'AI voiceovers sound robotic and unnatural',
+            point3: 'Manual re-recording is time-consuming and costly'
+          },
+          order: 2
+        },
+        {
+          id: uuidv4(),
+          type: 'solution',
+          content: {
+            title: 'Our Solution',
+            description: 'AI-powered dubbing that preserves the creator\'s original voice, tone, and emotion across multiple languages.',
+            point1: 'Voice authenticity retention',
+            point2: 'Emotionally rich multilingual dubbing',
+            point3: 'Fast, affordable, and seamless process'
+          },
+          order: 3
+        },
+        {
+          id: uuidv4(),
+          type: 'market',
+          content: {
+            title: 'Market Opportunity',
+            description: 'The creator economy is booming globally, and authentic content localization is in high demand.',
+            stat1: '200M+ global creators across platforms',
+            stat2: '$250B+ creator economy market by 2030',
+            stat3: '72% of creators want to expand to global audiences'
+          },
+          order: 4
+        },
+        {
+          id: uuidv4(),
+          type: 'product',
+          content: {
+            title: 'Product Overview',
+            feature1: 'Voice Emotion AI Engine',
+            feature2: 'Multilingual Seamless Dubbing',
+            feature3: 'Customizable Voice Profiles',
+            description: 'EpiDub empowers creators to dub their videos into multiple languages while preserving their unique voice identity and emotional resonance.'
+          },
+          order: 5
+        },
+        {
+          id: uuidv4(),
+          type: 'traction',
+          content: {
+            title: 'Traction',
+            metric1: '1,000+ videos processed in beta',
+            metric2: '45% monthly growth',
+            metric3: '92% creator satisfaction rate',
+            description: 'Strong demand from wellness educators and YouTube creators during private beta.'
+          },
+          order: 6
+        },
+        {
+          id: uuidv4(),
+          type: 'team',
+          content: {
+            title: 'Our Team',
+            member1: 'Karim Amor, Founder & CEO (ex-Google)',
+            member2: 'Abdeslam Jakjoud, CTO (ex-DeepMind)',
+            member3: 'Hamza Fatih, CMO (ex-TikTok)',
+            description: '20+ years combined experience in AI, audio engineering, and creator economy platforms.'
+          },
+          order: 7
+        },
+        {
+          id: uuidv4(),
+          type: 'competition',
+          content: {
+            title: 'Competitive Landscape',
+            competitor1: 'Traditional dubbing studios: Slow, expensive, manual',
+            competitor2: 'Generic AI voiceovers: Robotic, emotionless',
+            competitor3: 'Manual re-recordings: Labor-intensive, costly',
+            advantage: 'EpiDub uniquely preserves authenticity, emotion, and creator identity, making global expansion effortless.'
+          },
+          order: 8
+        },
+        {
+          id: uuidv4(),
+          type: 'business-model',
+          content: {
+            title: 'Business Model',
+            pricing1: 'Starter: $19/mo - 60 minutes dubbing/month',
+            pricing2: 'Pro: $59/mo - 200 minutes + advanced voice tuning',
+            pricing3: 'Business: $149/mo - Unlimited dubbing & enterprise integrations',
+            projection: 'Projected $800K ARR within 12 months post-launch'
+          },
+          order: 9
+        },
+        {
+          id: uuidv4(),
+          type: 'financials',
+          content: {
+            title: 'Financials & Projections',
+            current: 'Current: 200 paid beta users, growing 45% monthly',
+            projection: 'Year 1: $800K ARR',
+            projection2: 'Year 3: $7M+ ARR',
+            efficiency: 'CAC: $180, LTV: $2,400, 13x LTV:CAC ratio'
+          },
+          order: 10
+        },
+        {
+          id: uuidv4(),
+          type: 'ask',
+          content: {
+            title: 'Fundraising',
+            ask: 'Raising $2M Seed Round',
+            use1: 'Engineering: Advance Voice Emotion AI',
+            use2: 'Marketing: Creator acquisition campaigns',
+            use3: 'Product: Expand platform integrations (YouTube, TikTok, wellness apps)',
+            timeline: '18-month runway to Series A readiness'
+          },
+          order: 11
+        },
+        {
+          id: uuidv4(),
+          type: 'contact',
+          content: {
+            title: 'Thank You',
+            name: 'Karim Amor',
+            email: 'karim@epidub.ai',
+            phone: '(555) 789-1234',
+            website: 'www.epidub.ai'
+          },
+          order: 12
+        }
+      ]
+        },
     feedback: createMockFeedback()
   }
 

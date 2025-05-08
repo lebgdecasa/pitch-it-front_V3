@@ -1,3 +1,5 @@
+// src/providers/app-provider.tsx
+
 "use client";
 
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
