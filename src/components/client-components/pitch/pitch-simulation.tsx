@@ -39,7 +39,7 @@ const PitchSimulation: React.FC<PitchSimulationProps> = ({ projectId, onComplete
 
   // Setup webcam stream when camera is enabled
   useEffect(() => {
-    if (cameraEnabled && connectionState === 'connected') {
+    if (cameraEnabled) {
       const setupWebcam = async () => {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({
@@ -49,6 +49,7 @@ const PitchSimulation: React.FC<PitchSimulationProps> = ({ projectId, onComplete
 
           if (userVideoRef.current) {
             userVideoRef.current.srcObject = stream;
+            userVideoRef.current.play(); // Ensure the video starts playing
           }
         } catch (error) {
           console.error("Error accessing webcam:", error);
@@ -59,8 +60,6 @@ const PitchSimulation: React.FC<PitchSimulationProps> = ({ projectId, onComplete
       setupWebcam();
 
       return () => {
-        // Clean up video stream when component unmounts or camera is disabled
-        // Store reference to avoid the exhaustive-deps warning
         const videoElement = userVideoRef.current;
         const stream = videoElement?.srcObject as MediaStream;
         if (stream) {
@@ -68,7 +67,7 @@ const PitchSimulation: React.FC<PitchSimulationProps> = ({ projectId, onComplete
         }
       };
     }
-  }, [cameraEnabled, micEnabled, connectionState]);
+  }, [cameraEnabled, micEnabled]);
 
   // Handle timer for each question
   useEffect(() => {
@@ -127,6 +126,7 @@ const PitchSimulation: React.FC<PitchSimulationProps> = ({ projectId, onComplete
   }, []);
 
   const handleStart = useCallback(() => {
+    setCameraEnabled(true); // Ensure the camera is enabled
     setConnectionState('recording');
   }, []);
 

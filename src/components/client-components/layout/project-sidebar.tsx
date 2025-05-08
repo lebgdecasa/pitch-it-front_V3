@@ -77,6 +77,11 @@ export const ProjectSidebar = () => {
       label: 'Chat',
       href: `/project/${projectId}/chat`
     },
+    {
+      icon: FileText,
+      label: 'Documents',
+      href: `/project/${projectId}/documents`,
+    },
   ];
 
   // Bottom navigation similar to main sidebar

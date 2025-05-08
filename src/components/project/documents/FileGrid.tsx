@@ -51,11 +51,6 @@ export const FileGrid: React.FC<FileGridProps> = ({
 
           <div className="mt-4 space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs text-gray-600">Public to investors</span>
-              <Switch
-                checked={doc.isPublic}
-                onCheckedChange={() => onToggleVisibility(doc.id)}
-              />
             </div>
 
             <div className="flex items-center gap-2 justify-center">

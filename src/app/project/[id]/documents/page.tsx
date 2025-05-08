@@ -135,24 +135,6 @@ const DocumentsPage = () => {
         <h1 className="text-2xl font-semibold">Documents</h1>
         <div className="flex items-center gap-3">
           <div className="flex items-center border rounded-lg p-1">
-            <Button
-              variant={viewMode === 'grid' ? 'default' : 'ghost'}
-              size="sm"
-              className="px-3"
-              onClick={() => setViewMode('grid')}
-            >
-              <LayoutGrid className="w-4 h-4 mr-2" />
-              Grid
-            </Button>
-            <Button
-              variant={viewMode === 'table' ? 'default' : 'ghost'}
-              size="sm"
-              className="px-3"
-              onClick={() => setViewMode('table')}
-            >
-              <TableIcon className="w-4 h-4 mr-2" />
-              Table
-            </Button>
           </div>
           <Button onClick={() => setShowUpload(true)}>
             <PlusCircle className="w-4 h-4 mr-2" />

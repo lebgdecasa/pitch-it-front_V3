@@ -17,31 +17,31 @@ export default function PulseResultsPage() {
   const [currentStatus, setCurrentStatus] = useState<'pending' | 'recruiting' | 'in_progress' | 'analyzing' | 'complete' | 'error'>('pending');
   const [participantsCompleted, setParticipantsCompleted] = useState(0);
   const participantsTotal = 15; // Example total
-  
+
   // Mock pulse data
   const pulseData = getPulseReportData(id);
-  
+
   // Simulate progress of the research
   useEffect(() => {
     // Start with pending
     const pendingTimer = setTimeout(() => {
       setCurrentStatus('recruiting');
-      
+
       // Move to recruiting
       const recruitingTimer = setTimeout(() => {
         setCurrentStatus('in_progress');
-        
+
         // Start completing participants
         const participantInterval = setInterval(() => {
           setParticipantsCompleted(prev => {
             const newValue = prev + 1;
             if (newValue >= participantsTotal) {
               clearInterval(participantInterval);
-              
+
               // Move to analyzing
               setTimeout(() => {
                 setCurrentStatus('analyzing');
-                
+
                 // Finally complete
                 setTimeout(() => {
                   setCurrentStatus('complete');
@@ -51,19 +51,19 @@ export default function PulseResultsPage() {
             return newValue;
           });
         }, 2000);
-        
+
       }, 8000);
-      
+
       return () => {
         clearTimeout(recruitingTimer);
       };
     }, 5000);
-    
+
     return () => {
       clearTimeout(pendingTimer);
     };
   }, []);
-  
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-5xl mx-auto px-4">
@@ -71,7 +71,7 @@ export default function PulseResultsPage() {
           <ChevronLeft className="h-4 w-4 mr-1" />
           Back to Project
         </Link>
-        
+
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Real-World Pulse Results</h1>
@@ -79,7 +79,7 @@ export default function PulseResultsPage() {
               {project?.name || 'Project'} - User Feedback Analysis
             </p>
           </div>
-          
+
           {currentStatus === 'complete' && (
             <div className="mt-4 md:mt-0 space-x-2">
               <Button variant="outline" size="sm">
@@ -93,12 +93,12 @@ export default function PulseResultsPage() {
             </div>
           )}
         </div>
-        
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main content area */}
           <div className="lg:col-span-2">
             {currentStatus === 'complete' ? (
-              <InteractiveReport 
+              <InteractiveReport
                 projectId={id}
                 pulseData={pulseData}
               />
@@ -110,17 +110,17 @@ export default function PulseResultsPage() {
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Research in Progress</h3>
                   <p className="text-gray-600 mb-6 max-w-md">
-                    Your Real-World Pulse research is currently being conducted. 
+                    Your Real-World Pulse research is currently being conducted.
                     Results will appear here once the process is complete.
                   </p>
-                  
+
                   <div className="w-full max-w-md h-2 bg-gray-200 rounded-full mb-4">
-                    <div 
+                    <div
                       className="h-2 bg-blue-600 rounded-full transition-all duration-1000 ease-out"
                       style={{ width: `${(participantsCompleted / participantsTotal) * 100}%` }}
                     ></div>
                   </div>
-                  
+
                   <p className="text-sm text-gray-500">
                     {participantsCompleted} of {participantsTotal} participants completed
                   </p>
@@ -128,43 +128,43 @@ export default function PulseResultsPage() {
               </div>
             )}
           </div>
-          
+
           {/* Sidebar */}
           <div className="space-y-6">
-            <StatusTracker 
+            <StatusTracker
               status={currentStatus}
               participantsTotal={participantsTotal}
               participantsCompleted={participantsCompleted}
             />
-            
+
             <div className="bg-white rounded-lg border border-gray-200 p-5">
               <h3 className="font-semibold text-gray-900 mb-4">Research Summary</h3>
-              
+
               <div className="space-y-3">
                 <div>
                   <h4 className="text-sm font-medium text-gray-500">Project</h4>
                   <p className="text-gray-800">{project?.name || 'Not specified'}</p>
                 </div>
-                
+
                 <div>
                   <h4 className="text-sm font-medium text-gray-500">Research Goals</h4>
                   <p className="text-gray-800">Problem Validation, Pricing Feedback</p>
                 </div>
-                
+
                 <div>
                   <h4 className="text-sm font-medium text-gray-500">Target Personas</h4>
                   <p className="text-gray-800">Tech-savvy Professionals, Digital Parents</p>
                 </div>
-                
+
                 <div>
                   <h4 className="text-sm font-medium text-gray-500">Order Date</h4>
                   <p className="text-gray-800">{new Date().toLocaleDateString()}</p>
                 </div>
               </div>
-              
+
               <div className="border-t border-gray-100 mt-4 pt-4">
                 {currentStatus === 'complete' ? (
-                  <Link 
+                  <Link
                     href="#"
                     className="text-sm flex items-center font-medium text-blue-600 hover:text-blue-800"
                   >
@@ -178,12 +178,12 @@ export default function PulseResultsPage() {
                 )}
               </div>
             </div>
-            
+
             {/* Only show "Next Steps" when research is complete */}
             {currentStatus === 'complete' && (
               <div className="bg-white rounded-lg border border-gray-200 p-5">
                 <h3 className="font-semibold text-gray-900 mb-4">Next Steps</h3>
-                
+
                 <ul className="space-y-3">
                   <li className="flex items-start">
                     <div className="bg-blue-100 rounded-full p-1 text-blue-600 mr-3 flex-shrink-0 mt-0.5">
@@ -210,10 +210,10 @@ export default function PulseResultsPage() {
                     <span className="text-gray-700">Consider a follow-up test on revised solutions</span>
                   </li>
                 </ul>
-                
+
                 <div className="mt-4">
                   <Button className="w-full">
-                    <Link href={`/project/${id}/pitch/setup`}>
+                    <Link href={`/project/${id}/virtual-vc/setup`}>
                       Move to Pitch Practice
                     </Link>
                   </Button>

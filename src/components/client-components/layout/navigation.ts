@@ -18,6 +18,11 @@ export const mainNavItems = [
     href: '/project/:id/deck'
   },
   {
+    icon: FileText,
+    label: 'Documents',
+    href: `/project/:id/documents`,
+  },
+  {
     icon: Lightbulb,
     label: 'Insights',
     href: '/project/:id/insights'
@@ -35,7 +40,7 @@ export const mainNavItems = [
   {
     icon: Settings,
     label: 'Settings',
-    href: '/project/:id/settings'
+    href: '/settings'
   },
 ];
 
