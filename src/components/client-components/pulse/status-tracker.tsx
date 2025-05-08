@@ -9,20 +9,20 @@ interface StatusTrackerProps {
   participantsCompleted: number;
 }
 
-const StatusTracker: React.FC<StatusTrackerProps> = ({ 
-  status, 
-  participantsTotal, 
-  participantsCompleted 
+const StatusTracker: React.FC<StatusTrackerProps> = ({
+  status,
+  participantsTotal,
+  participantsCompleted
 }) => {
   const [animateProgress, setAnimateProgress] = useState(false);
   const [websocketMessage, setWebsocketMessage] = useState<string | null>(null);
-  
+
   // Simulate WebSocket events
   useEffect(() => {
     // Initial delay to simulate connection setup
     const timer = setTimeout(() => {
       setAnimateProgress(true);
-      
+
       // Simulate different websocket messages based on status
       const messageInterval = setInterval(() => {
         const messages = {
@@ -57,20 +57,20 @@ const StatusTracker: React.FC<StatusTrackerProps> = ({
             "Connection restored. Continuing analysis."
           ]
         };
-        
+
         // Get random message for current status
         const statusMessages = messages[status];
         const randomMessage = statusMessages[Math.floor(Math.random() * statusMessages.length)];
-        
+
         setWebsocketMessage(randomMessage);
       }, 5000); // New message every 5 seconds
-      
+
       return () => clearInterval(messageInterval);
     }, 1000);
-    
+
     return () => clearTimeout(timer);
   }, [status]);
-  
+
   const getStatusInfo = () => {
     switch (status) {
       case 'pending':
@@ -97,7 +97,7 @@ const StatusTracker: React.FC<StatusTrackerProps> = ({
       case 'analyzing':
         return {
           label: 'Analyzing Results',
-          color: 'bg-purple-100 text-purple-800', 
+          color: 'bg-purple-100 text-purple-800',
           icon: <Clock className="h-5 w-5 text-purple-500" />,
           progress: 80
         };
@@ -124,12 +124,12 @@ const StatusTracker: React.FC<StatusTrackerProps> = ({
         };
     }
   };
-  
+
   const { label, color, icon, progress } = getStatusInfo();
-  const progressPercentage = status !== 'complete' 
+  const progressPercentage = status !== 'complete'
     ? Math.min(progress, (participantsCompleted / participantsTotal) * 100)
     : 100;
-  
+
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-5">
       <div className="flex justify-between items-center mb-4">
@@ -139,41 +139,29 @@ const StatusTracker: React.FC<StatusTrackerProps> = ({
           <span className="ml-1">{label}</span>
         </span>
       </div>
-      
+
       <div className="mb-4">
         <div className="flex justify-between items-center mb-1">
           <span className="text-sm text-gray-600">Overall Progress</span>
           <span className="text-sm font-medium text-gray-900">{Math.round(progressPercentage)}%</span>
         </div>
         <div className="h-2 bg-gray-200 rounded-full">
-          <div 
+          <div
             className="h-2 bg-blue-600 rounded-full transition-all duration-1000 ease-out"
             style={{ width: animateProgress ? `${progressPercentage}%` : '0%' }}
           ></div>
         </div>
       </div>
-      
+
       <div className="flex justify-between items-center mb-4">
         <span className="text-sm text-gray-600">Participants</span>
         <span className="text-sm font-medium text-gray-900">
           {participantsCompleted} of {participantsTotal} complete
         </span>
       </div>
-      
+
       {/* WebSocket style live updates */}
-      <div className="bg-gray-50 rounded p-3 text-sm">
-        <div className="flex items-start">
-          <div className="min-w-2 h-2 rounded-full bg-green-500 mt-1.5 mr-2"></div>
-          <div>
-            <div className="text-gray-600">
-              {websocketMessage || "Connected to research status feed..."}
-            </div>
-            <div className="text-xs text-gray-500 mt-1">
-              {new Date().toLocaleTimeString()}
-            </div>
-          </div>
-        </div>
-      </div>
+      
     </div>
   );
 };

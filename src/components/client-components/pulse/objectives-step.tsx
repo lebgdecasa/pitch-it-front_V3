@@ -49,25 +49,25 @@ const ObjectivesStep: React.FC<ObjectivesStepProps> = ({ objectives, updateObjec
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Problem Validation */}
-        <div 
+        <div
           onClick={() => handleCheckboxChange('problemValidation')}
           className={`rounded-lg border cursor-pointer p-4 transition-colors ${
-            objectives.problemValidation 
-              ? 'bg-blue-50 border-blue-300' 
+            objectives.problemValidation
+              ? 'bg-blue-50 border-blue-300'
               : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/30'
           }`}
         >
           <div className="flex items-start">
-            <input 
-              type="checkbox" 
-              id="problemValidation" 
-              checked={objectives.problemValidation} 
+            <input
+              type="checkbox"
+              id="problemValidation"
+              checked={objectives.problemValidation}
               onChange={() => handleCheckboxChange('problemValidation')}
               className="rounded text-blue-600 mr-3 mt-1"
             />
             <div>
-              <label 
-                htmlFor="problemValidation" 
+              <label
+                htmlFor="problemValidation"
                 className="font-medium text-gray-900 cursor-pointer"
               >
                 Problem Validation
@@ -80,25 +80,25 @@ const ObjectivesStep: React.FC<ObjectivesStepProps> = ({ objectives, updateObjec
         </div>
 
         {/* Pricing Feedback */}
-        <div 
+        <div
           onClick={() => handleCheckboxChange('pricingFeedback')}
           className={`rounded-lg border cursor-pointer p-4 transition-colors ${
-            objectives.pricingFeedback 
-              ? 'bg-blue-50 border-blue-300' 
+            objectives.pricingFeedback
+              ? 'bg-blue-50 border-blue-300'
               : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/30'
           }`}
         >
           <div className="flex items-start">
-            <input 
-              type="checkbox" 
-              id="pricingFeedback" 
-              checked={objectives.pricingFeedback} 
+            <input
+              type="checkbox"
+              id="pricingFeedback"
+              checked={objectives.pricingFeedback}
               onChange={() => handleCheckboxChange('pricingFeedback')}
               className="rounded text-blue-600 mr-3 mt-1"
             />
             <div>
-              <label 
-                htmlFor="pricingFeedback" 
+              <label
+                htmlFor="pricingFeedback"
                 className="font-medium text-gray-900 cursor-pointer"
               >
                 Pricing Feedback
@@ -111,56 +111,56 @@ const ObjectivesStep: React.FC<ObjectivesStepProps> = ({ objectives, updateObjec
         </div>
 
         {/* Usability Testing */}
-        <div 
+        <div
           onClick={() => handleCheckboxChange('usabilityTesting')}
           className={`rounded-lg border cursor-pointer p-4 transition-colors ${
-            objectives.usabilityTesting 
-              ? 'bg-blue-50 border-blue-300' 
+            objectives.usabilityTesting
+              ? 'bg-blue-50 border-blue-300'
               : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/30'
           }`}
         >
           <div className="flex items-start">
-            <input 
-              type="checkbox" 
-              id="usabilityTesting" 
-              checked={objectives.usabilityTesting} 
+            <input
+              type="checkbox"
+              id="usabilityTesting"
+              checked={objectives.usabilityTesting}
               onChange={() => handleCheckboxChange('usabilityTesting')}
               className="rounded text-blue-600 mr-3 mt-1"
             />
             <div>
-              <label 
-                htmlFor="usabilityTesting" 
+              <label
+                htmlFor="usabilityTesting"
                 className="font-medium text-gray-900 cursor-pointer"
               >
-                Usability Testing
+                Trust and Credibility Assessment
               </label>
               <p className="text-sm text-gray-600 mt-1">
-                Test how intuitive and easy-to-use your prototype or product is
+              Gauge whether users perceive your brand, product, or website as trustworthy
               </p>
             </div>
           </div>
         </div>
 
         {/* Concept Testing */}
-        <div 
+        <div
           onClick={() => handleCheckboxChange('conceptTesting')}
           className={`rounded-lg border cursor-pointer p-4 transition-colors ${
-            objectives.conceptTesting 
-              ? 'bg-blue-50 border-blue-300' 
+            objectives.conceptTesting
+              ? 'bg-blue-50 border-blue-300'
               : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/30'
           }`}
         >
           <div className="flex items-start">
-            <input 
-              type="checkbox" 
-              id="conceptTesting" 
-              checked={objectives.conceptTesting} 
+            <input
+              type="checkbox"
+              id="conceptTesting"
+              checked={objectives.conceptTesting}
               onChange={() => handleCheckboxChange('conceptTesting')}
               className="rounded text-blue-600 mr-3 mt-1"
             />
             <div>
-              <label 
-                htmlFor="conceptTesting" 
+              <label
+                htmlFor="conceptTesting"
                 className="font-medium text-gray-900 cursor-pointer"
               >
                 Concept Testing

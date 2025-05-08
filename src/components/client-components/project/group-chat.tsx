@@ -1,3 +1,5 @@
+// src/components/client-components/project/group-chat.tsx
+
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Send } from 'lucide-react';
@@ -23,27 +25,34 @@ interface ChatMessage {
 // Props for the GroupChat component
 interface GroupChatProps {
   projectId: string;
+  projectName: string;
 }
 
 // Mock data for personas
 const personas: Persona[] = [
   {
-    id: 'alex',
-    name: 'Alex',
+    id: 'alan',
+    name: 'Alan',
+    role: 'Customer',
+    avatar: '/assets/avatars/alex-chen.jpg'
+  },
+  {
+    id: 'brenda',
+    name: 'Brenda',
+    role: 'Customer',
+    avatar: '/assets/avatars/sarah-johnson.jpg'
+  },
+  {
+    id: 'marcus',
+    name: 'Marcus',
+    role: 'Customer',
+    avatar: '/assets/avatars/marcus-williams.jpg'
+  },
+  {
+    id: 'danielle',
+    name: 'Danielle',
     role: 'Pitch/Project Advisor',
-    avatar: '/assets/avatars/alex.png'
-  },
-  {
-    id: 'eleanor',
-    name: 'Eleanor',
-    role: 'Field Expert',
-    avatar: '/assets/avatars/eleanor.png'
-  },
-  {
-    id: 'natalie',
-    name: 'Natalie',
-    role: 'UX Specialist',
-    avatar: '/assets/avatars/natalie.png'
+    avatar: '/assets/avatars/amara-okonkwo.jpg'
   },
   {
     id: 'user',
@@ -54,26 +63,26 @@ const personas: Persona[] = [
 ];
 
 // Sample initial messages
-const getInitialMessages = (projectId: string): ChatMessage[] => [
+const getInitialMessages = (projectId: string, projectName: any): ChatMessage[] => [
   {
     id: '1',
-    personaId: 'alex',
-    personaName: 'Alex',
-    text: 'Welcome! I can help you refine your pitch and project strategy. What aspect of your project would you like to work on today?',
+    personaId: 'alan',
+    personaName: 'Alan',
+    text: `Welcome to the strategy session for ${projectName}! I\'m Alan. I\'ve reviewed the concept of your AI-powered dubbing platform. The \'emotion preservation\' aspect is particularly interesting. To start, what\'s the biggest challenge you\'re currently facing with your pitch or overall project strategy?`,
     timestamp: new Date(Date.now() - 1000 * 60 * 60)
   }
 ];
 
-export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
+export const GroupChat: React.FC<GroupChatProps> = ({ projectId, projectName }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [selectedPersona, setSelectedPersona] = useState<Persona | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     // Load initial messages
-    setMessages(getInitialMessages(projectId));
-  }, [projectId]);
+    setMessages(getInitialMessages(projectId, projectName));
+  }, [projectId, projectName]);
 
   useEffect(() => {
     // Scroll to bottom whenever messages change
@@ -95,7 +104,7 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
       text: newMessage,
       timestamp: new Date()
     };
-    
+
     setMessages((prev) => [...prev, userMessage]);
     setNewMessage('');
 
@@ -127,7 +136,7 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
 
     // Determine which persona should respond
     let respondingPersona: Persona;
-    
+
     if (selectedPersona && selectedPersona.id !== 'user') {
       // If a specific persona is selected, they respond
       respondingPersona = selectedPersona;
@@ -136,11 +145,11 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
       const availablePersonas = personas.filter(p => p.id !== 'user');
       respondingPersona = availablePersonas[Math.floor(Math.random() * availablePersonas.length)];
     }
-    
+
     // Get a random response for the persona
     const personaResponses = responses[respondingPersona.id] || ["I'm not sure about that, can you elaborate?"];
     const responseText = personaResponses[Math.floor(Math.random() * personaResponses.length)];
-    
+
     const aiResponse: ChatMessage = {
       id: (Date.now() + 1).toString(),
       personaId: respondingPersona.id,
@@ -148,7 +157,7 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
       text: responseText,
       timestamp: new Date()
     };
-    
+
     setMessages((prev) => [...prev, aiResponse]);
     setSelectedPersona(null); // Reset selected persona after response
   };
@@ -158,36 +167,49 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
       <div className="p-4 border-b">
         <h3 className="font-semibold text-lg">Group Chat</h3>
       </div>
-      
+
       {/* Persona selection */}
       <div className="flex overflow-x-auto p-4 gap-3 border-b">
-        {personas.filter(p => p.id !== 'user').map((persona) => (
-          <div 
-            key={persona.id}
-            onClick={() => handlePersonaClick(persona)}
-            className={`flex-shrink-0 flex flex-col items-center cursor-pointer p-2 rounded-lg ${
-              selectedPersona?.id === persona.id ? 'bg-gray-100' : ''
-            }`}
-          >
-            <div className="w-16 h-16 bg-gray-200 rounded-full overflow-hidden mb-2 flex items-center justify-center">
-              <div className="text-xl text-gray-500">{persona.name.charAt(0)}</div>
-            </div>
-            <span className="text-sm font-medium">{persona.name}</span>
-          </div>
-        ))}
+  {personas.filter(p => p.id !== 'user').map((persona) => (
+    <div
+      key={persona.id}
+      onClick={() => handlePersonaClick(persona)}
+      className={`flex-shrink-0 flex flex-col items-center cursor-pointer p-2 rounded-lg ${
+        selectedPersona?.id === persona.id ? 'bg-gray-100' : ''
+      }`}
+    >
+      <div className="w-16 h-16 bg-gray-200 rounded-full overflow-hidden mb-2 flex items-center justify-center">
+        <Image
+          src={persona.avatar}
+          alt={`${persona.name}'s avatar`}
+          width={64}
+          height={64}
+          className="rounded-full"
+        />
       </div>
-      
+      <span className="text-sm font-medium">{persona.name}</span>
+    </div>
+  ))}
+</div>
+
       {/* Chat messages */}
       <div className="h-80 overflow-y-auto p-4">
         {messages.map((message) => {
           const isUser = message.personaId === 'user';
+          const persona = personas.find(p => p.id === message.personaId); // Find the persona for the message
           return (
             <div key={message.id} className={`mb-4 ${isUser ? 'ml-12' : ''}`}>
               <div className="flex items-start">
-                {!isUser && (
+                {!isUser && persona && (
                   <div className="flex-shrink-0 mr-3">
-                    <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
-                      <span className="text-gray-500 text-sm font-semibold">{message.personaName.charAt(0)}</span>
+                    <div className="w-10 h-10 rounded-full overflow-hidden">
+                      <Image
+                        src={persona.avatar}
+                        alt={`${persona.name}'s avatar`}
+                        width={40}
+                        height={40}
+                        className="rounded-full"
+                      />
                     </div>
                   </div>
                 )}
@@ -214,7 +236,7 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
         })}
         <div ref={messagesEndRef} />
       </div>
-      
+
       {/* Message input */}
       <div className="p-4 border-t flex items-center">
         <div className="flex-1">
@@ -227,7 +249,7 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
             className="w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
-        <Button 
+        <Button
           onClick={handleSendMessage}
           className="ml-2"
           disabled={!newMessage.trim()}
@@ -235,7 +257,7 @@ export const GroupChat: React.FC<GroupChatProps> = ({ projectId }) => {
           <Send className="h-4 w-4" />
         </Button>
       </div>
-      
+
       {/* If a persona is selected, show their role */}
       {selectedPersona && selectedPersona.id !== 'user' && (
         <div className="px-4 py-2 bg-gray-50 text-sm">

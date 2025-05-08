@@ -281,7 +281,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                   })}
                 </div>
                 <Button
-                  onClick={() => setShowGroupChat(true)}
+                  onClick={() => window.location.href = `/project/${params.id}/chat`}
                   className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 text-lg"
                 >
                   <Users className="h-5 w-5 mr-2" />

@@ -6,7 +6,7 @@ interface TestingStepProps {
   testing: {
     quantity: number;
     methods: {
-      remoteTests: boolean;
+      focusgroups: boolean;
       aiAssistedCalls: boolean;
       surveys: boolean;
       interviews: boolean;
@@ -72,7 +72,7 @@ const TestingStep: React.FC<TestingStepProps> = ({
             defaultValue={[testing.quantity]}
             min={5}
             max={100}
-            step={5}
+            step={1}
             onValueChange={handleQuantityChange}
           />
 
@@ -107,9 +107,9 @@ const TestingStep: React.FC<TestingStepProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Remote Usability Tests */}
           <div
-            onClick={() => handleMethodChange('remoteTests')}
+            onClick={() => handleMethodChange('focusgroups')}
             className={`rounded-lg border p-4 cursor-pointer transition-colors ${
-              testing.methods.remoteTests
+              testing.methods.focusgroups
                 ? 'bg-blue-50 border-blue-300'
                 : 'border-gray-200 hover:border-blue-200 hover:bg-blue-50/30'
             }`}
@@ -117,20 +117,20 @@ const TestingStep: React.FC<TestingStepProps> = ({
             <div className="flex items-start">
               <input
                 type="checkbox"
-                id="remoteTests"
-                checked={testing.methods.remoteTests}
-                onChange={() => handleMethodChange('remoteTests')}
+                id="focusgroups"
+                checked={testing.methods.focusgroups}
+                onChange={() => handleMethodChange('focusgroups')}
                 className="rounded text-blue-600 mr-3 mt-1"
               />
               <div>
                 <label
-                  htmlFor="remoteTests"
+                  htmlFor="focusgroups"
                   className="font-medium text-gray-900 cursor-pointer"
                 >
-                  Remote Usability Tests
+                  Focus Groups
                 </label>
                 <p className="text-sm text-gray-600 mt-1">
-                  Recorded sessions of users interacting with your product
+                  Recorded sessions of small group discussions to explore user needs, opinions, and behaviors
                 </p>
                 <div className="mt-2 flex items-center">
                   <DollarSign className="h-3 w-3 text-gray-400 mr-1" />
@@ -169,7 +169,7 @@ const TestingStep: React.FC<TestingStepProps> = ({
                 </p>
                 <div className="mt-2 flex items-center">
                   <DollarSign className="h-3 w-3 text-gray-400 mr-1" />
-                  <span className="text-xs text-gray-500">+$15 per participant</span>
+                  <span className="text-xs text-gray-500">+$[X]</span>
                 </div>
               </div>
             </div>
