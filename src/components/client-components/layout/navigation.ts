@@ -30,7 +30,7 @@ export const mainNavItems = [
   {
     icon: Video,
     label: 'Virtual VC',
-    href: '/project/:id/virtual-vc'
+    href: '/project/:id/virtual-vc/setup'
   },
   {
     icon: Settings,
