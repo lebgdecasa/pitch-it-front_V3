@@ -53,6 +53,47 @@ const analysisByProjectId: ProjectAnalysis = {
       ],
       date: "2024-01-25"
     }
+  ],
+  "project-4": [
+    {
+      id: "kt-004",
+      title: "Key Trend Analysis",
+      type: "key-trend",
+      summary: "Market trends and competitive landscape analysis",
+      details: [
+        "Growing market size of $5.2B by 2025",
+        "Increasing demand in remote work solutions",
+        "Emerging technological adoption trends",
+        "Key competitor analysis and market positioning"
+      ],
+      date: "2054-04-15"
+    },
+    {
+      id: "na-004",
+      title: "Netnographic Analysis",
+      type: "netnographic",
+      summary: "Customer behavior and online community insights",
+      details: [
+        "Social media sentiment analysis",
+        "Online community engagement patterns",
+        "User feedback and pain points",
+        "Brand perception and positioning"
+      ],
+      date: "2025-04-20"
+    },
+    {
+      id: "fr-004",
+      title: "Final Report",
+      type: "final-report",
+      summary: "Comprehensive project analysis and recommendations",
+      details: [
+        "Executive summary",
+        "Key findings and insights",
+        "Strategic recommendations",
+        "Implementation roadmap"
+      ],
+      date: "2025-04-25"
+    }
   ]
 };
 

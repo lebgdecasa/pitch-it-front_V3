@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronLeft, Edit, Download } from 'lucide-react';
+import { ChevronLeft, Edit, Download, Users } from 'lucide-react';
 import ActionButtons from '../../../components/project/ActionButtons';
 import analysisByProjectId from '../../../mocks/analysis-data';
 import { AnalysisSection } from '../../../components/project/dashboard/AnalysisSection';
@@ -14,6 +14,7 @@ import { ProjectStage } from '../../../types';
 import { MetricsBadges } from '../../../components/client-components/project/metrics-badges';
 import PersonaCard from '../../../components/client-components/persona/PersonaCard';
 import PersonaModal from '../../../components/client-components/persona/PersonaModal';
+import { GroupChat } from '../../../components/project/chat/GroupChat';
 import { mockChatPersonas } from '../../../mocks';
 import { financialMetrics } from '../../../mocks/financial-metrics';
 
@@ -28,31 +29,40 @@ const PitchDetail = ({ label, value }: { label: string; value: string }) => (
 // Sample persona details for enhancing the mock data
 const personaDetails = [
   {
-    jobTitle: "Target Customer",
-    needsSnippet: "Looking for solutions that address their pain points.",
-    needsDetails: "Seeks practical solutions that solve real problems. Values clear understanding of benefits and ease of use.",
-    background: "Representative of your target market with specific needs and challenges.",
-    goals: ["Find effective solutions", "Improve current processes", "Get good value for money"],
-    challenges: ["Current solutions are inadequate", "Limited time and resources", "Need for reliable support"],
-    preferredCommunication: "Clear, benefit-focused communication with concrete examples and demonstrations."
+    jobTitle: "Freelance Animator and Content Creator",
+    needsSnippet: "Seeks efficient and creative tools to streamline animation and storytelling.",
+    needsDetails: "Needs to create engaging animated podcasts quickly and efficiently, maintain a consistent brand voice, experiment with different character voices without hiring voice actors, save time on scriptwriting and emotion adaptation, and build a loyal audience.",
+    background: "Represents the growing segment of independent animators and content creators who constantly seek efficient, creative tools. Early adopters of new technologies, they influence peers through their work and innovation.",
+    goals: ["Produce high-quality content faster", "Expand audience reach", "Maintain creative control and brand consistency"],
+    challenges: ["Time-consuming animation and voice production", "High costs for professional voice actors", "Limited emotional range of standard AI voices"],
+    preferredCommunication: "Animation forums, YouTube animation communities, Patreon, Discord servers for animators, online animation courses."
   },
   {
-    jobTitle: "Industry Expert",
-    needsSnippet: "Evaluates solution viability and market fit.",
-    needsDetails: "Assesses whether solutions effectively address industry challenges and can be implemented successfully.",
-    background: "20+ years of industry experience with deep domain knowledge.",
-    goals: ["Identify practical solutions", "Evaluate technical feasibility", "Assess market potential"],
-    challenges: ["Understanding new technologies", "Evaluating implementation ease", "Assessing scalability"],
-    preferredCommunication: "Detailed technical information with clear practical applications."
+    jobTitle: "Marketing Manager at a Tech Startup",
+    needsSnippet: "Aims to integrate podcasts into brand marketing with minimal friction.",
+    needsDetails: "Needs to create high-quality branded podcasts, maintain a consistent brand voice, experiment with different voice styles, save time on scriptwriting and emotional adaptation, track podcast performance metrics, and generate leads through audio content.",
+    background: "Represents the growing trend of marketers using podcasts as a strategic channel for brand building and lead generation. They require tools that align tightly with brand standards and provide measurable ROI.",
+    goals: ["Enhance brand presence through audio content", "Generate qualified leads via podcasts", "Maintain strong brand voice and authenticity"],
+    challenges: ["Producing quality content consistently under time pressure", "Maintaining emotional authenticity in AI-generated voices", "Measuring and optimizing podcast performance"],
+    preferredCommunication: "Marketing conferences, marketing blogs, LinkedIn marketing groups, podcasting communities, online marketing courses."
   },
   {
-    jobTitle: "Business Advisor",
-    needsSnippet: "Provides strategic guidance on business development.",
-    needsDetails: "Helps refine business model and go-to-market strategy. Offers feedback on pitch effectiveness.",
-    background: "Experienced entrepreneur with multiple successful ventures.",
-    goals: ["Help develop solid business models", "Refine market strategy", "Improve pitch effectiveness"],
-    challenges: ["Ensuring business viability", "Market positioning", "Resource allocation"],
-    preferredCommunication: "Strategic discussions with concrete examples and metrics."
+    jobTitle: "Independent Online Educator",
+    needsSnippet: "Wants scalable, time-saving solutions to grow educational content output.",
+    needsDetails: "Needs to create engaging educational podcasts quickly and efficiently, maintain a consistent and personal teaching style, experiment with different voice styles, save time on scriptwriting and emotion adaptation, build a loyal student base, and generate sustainable revenue.",
+    background: "Represents the booming online education economy, looking for scalable tools to produce authentic, high-quality educational content while keeping direct connection with students.",
+    goals: ["Expand reach with more content formats", "Deliver high-quality lessons efficiently", "Build loyal communities of learners"],
+    challenges: ["Managing time across content creation and student engagement", "Maintaining authentic teaching style with automation", "Standing out in a saturated education market"],
+    preferredCommunication: "Online education platforms, educational forums, social media groups for educators, podcasting communities, online course marketplaces."
+  },
+  {
+    jobTitle: "Freelance Podcaster and Travel Blogger",
+    needsSnippet: "Needs portable, flexible tools to create authentic travel storytelling from anywhere.",
+    needsDetails: "Needs to create high-quality travel podcasts remotely, maintain a consistent brand voice, experiment with different voice styles without needing extensive setups, save time on scriptwriting and emotion adaptation, build a loyal global following, and monetize content effectively.",
+    background: "Represents the fast-growing digital nomad lifestyle, creating content while traveling. They need lightweight, adaptable tools to produce professional storytelling across diverse locations.",
+    goals: ["Produce compelling podcasts while traveling", "Maintain audience connection from remote locations", "Monetize content sustainably"],
+    challenges: ["Limited access to professional recording resources while traveling", "High costs and logistics of voice acting remotely", "Maintaining authenticity with AI-generated voices"],
+    preferredCommunication: "Travel blogs, podcasting communities, social media groups for digital nomads, online travel forums, remote work platforms."
   }
 ];
 
@@ -71,6 +81,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   // State for persona selection and modal
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [viewingPersona, setViewingPersona] = useState<number | null>(null);
+  const [showGroupChat, setShowGroupChat] = useState(false);
 
   if (!project) {
     // If the project is not found, redirect to a 404 page
@@ -244,43 +255,53 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
           </div>
 
           {/* Target Personas Section */}
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Target Audience</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {mockChatPersonas.slice(0, 3).map((persona, index) => (
-                <div
-                  key={persona.id} // Key moved to the wrapper div
-                  onClick={() => handleSelectPersona(index)}
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                      e.preventDefault(); // Prevent default action for space (scrolling)
-                      handleSelectPersona(index);
-                    }
-                  }}
-                  role="button"
-                  tabIndex={0}
-                  className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 rounded-lg" // Added for accessibility and UX
-                >
-                  <PersonaCard
-                    // key prop removed from here
-                    persona={{
-                      ...persona, // Spread existing ChatPersona properties (e.g., id, name, avatar)
-                      jobTitle: personaDetails[index].jobTitle,
-                      needsSnippet: personaDetails[index].needsSnippet,
-                      primaryDetail: persona.name, // Assuming 'name' from ChatPersona is the primary detail
-                      description: personaDetails[index].background, // Using 'background' from personaDetails as description
-                      accentColor: '#6B7280', // Default accent color
-                    }}
-                    isSelected={selectedIndex === index}
-                    // onClick prop removed as it's not supported by PersonaCard
-                    onShowDetails={() => handleShowPersonaDetails(index)}
-                  />
+{/* Personas Section */}
+<div className="mb-6">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Ideal Customers</h2>
+            {!showGroupChat && (
+              <>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {mockChatPersonas.map((persona, index) => {
+                    const details = personaDetails[index % personaDetails.length];
+                    const enhancedPersona = {
+                      ...persona,
+                      primaryDetail: details.background,
+                      description: details.needsDetails,
+                      accentColor: "#6366f1", // You can set a color or map dynamically
+                      needsSnippet: details.needsSnippet,
+                      jobTitle: details.jobTitle,
+                    };
+                    return (
+                      <PersonaCard
+                        key={persona.id}
+                        persona={enhancedPersona}
+                        onShowDetails={() => handleShowPersonaDetails(index)}
+                      />
+                    );
+                  })}
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Pitch Deck Preview */}
+                <Button
+                  onClick={() => setShowGroupChat(true)}
+                  className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-6 text-lg"
+                >
+                  <Users className="h-5 w-5 mr-2" />
+                  Chat with Personas
+                </Button>
+              </>
+            )}
+            {showGroupChat && (
+              <div>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowGroupChat(false)}
+                  className="mb-4"
+                >
+                  <ChevronLeft className="h-4 w-4 mr-1" /> Back to Personas
+                </Button>
+                <GroupChat />
+              </div>
+            )}
+          </div>          {/* Pitch Deck Preview */}
           {(project.stage === ProjectStage.DECK_CREATION || project.stage === ProjectStage.REFINEMENT) && project.pitchDeck?.slides.length ? (
             <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
               <div className="flex justify-between items-center mb-4">
@@ -314,17 +335,18 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       </div>
 
       {/* Persona Modal */}
-      {viewingPersona !== null && (
+{/* Persona Modal */}
+{viewingPersona !== null && (
         <PersonaModal
           persona={mockChatPersonas[viewingPersona]}
           isOpen={viewingPersona !== null}
           onClose={handleCloseModal}
-          jobTitle={personaDetails[viewingPersona].jobTitle}
-          needsDetails={personaDetails[viewingPersona].needsDetails}
-          background={personaDetails[viewingPersona].background}
-          goals={personaDetails[viewingPersona].goals}
-          challenges={personaDetails[viewingPersona].challenges}
-          preferredCommunication={personaDetails[viewingPersona].preferredCommunication}
+          jobTitle={personaDetails[viewingPersona % personaDetails.length].jobTitle}
+          needsDetails={personaDetails[viewingPersona % personaDetails.length].needsDetails}
+          background={personaDetails[viewingPersona % personaDetails.length].background}
+          goals={personaDetails[viewingPersona % personaDetails.length].goals}
+          challenges={personaDetails[viewingPersona % personaDetails.length].challenges}
+          preferredCommunication={personaDetails[viewingPersona % personaDetails.length].preferredCommunication}
         />
       )}
     </div>

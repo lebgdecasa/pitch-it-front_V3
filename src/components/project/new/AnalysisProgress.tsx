@@ -39,7 +39,7 @@ export const AnalysisProgress: React.FC = () => {
         // Navigate after last step is complete
         if (index === steps.length - 1) {
           setTimeout(() => {
-            router.push(`/project/${MOCK_PROJECT_ID}`);
+            router.push(`/project/project-4`);
           }, 500); // Small delay before navigation
         }
       }, stepDuration * index);
