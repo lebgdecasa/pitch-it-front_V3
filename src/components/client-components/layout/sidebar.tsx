@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { mainNavItems, backNavItem } from './navigation';
 import { useAppContext } from '../../../providers/app-provider';
+import { usePulseContext } from '../../../providers/pulse-provider';
 
 interface IconProps {
   className?: string;
@@ -25,6 +26,7 @@ const ChevronRight: React.FC<IconProps> = ({ className }) => (
 
 export const Sidebar = () => {
   const { state } = useAppContext();
+  const { isResultReady, markResultAsViewed } = usePulseContext();
   const pathname = usePathname();
   const projectId = pathname.split('/')[2]; // Get project ID from URL
 
@@ -101,11 +103,21 @@ export const Sidebar = () => {
         {navItems.map((item, index) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
+          const isPulseItem = item.label === 'Pulse';
+          const showNotification = isPulseItem && projectId && isResultReady(projectId);
+
+          // Handle click on the Pulse item
+          const handleItemClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+            if (isPulseItem && projectId && isResultReady(projectId)) {
+              markResultAsViewed(projectId);
+            }
+          };
 
           return (
             <Link
               key={index}
               href={item.href}
+              onClick={handleItemClick}
               className={`flex items-center ${collapsed ? 'justify-center' : ''} px-2 py-3 rounded-md text-sm font-medium ${
                 isActive
                   ? 'bg-blue-50 text-deep-blue'
@@ -113,8 +125,20 @@ export const Sidebar = () => {
               }`}
               title={item.label}
             >
-              <Icon className={`h-5 w-5 ${collapsed ? '' : 'mr-3'} ${isActive ? 'text-deep-blue' : 'text-gray-500'}`} />
-              {!collapsed && item.label}
+              <div className="relative">
+                <Icon className={`h-5 w-5 ${collapsed ? '' : 'mr-3'} ${isActive ? 'text-deep-blue' : 'text-gray-500'}`} />
+                {showNotification && (
+                  <span className="absolute -top-1.5 -right-1.5 h-2.5 w-2.5 bg-red-500 rounded-full" />
+                )}
+              </div>
+              {!collapsed && (
+                <div className="flex items-center">
+                  <span>{item.label}</span>
+                  {showNotification && !collapsed && (
+                    <span className="ml-2 h-2 w-2 bg-red-500 rounded-full" />
+                  )}
+                </div>
+              )}
             </Link>
           );
         })}

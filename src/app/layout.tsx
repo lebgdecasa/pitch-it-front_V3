@@ -2,6 +2,7 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { AppProvider } from '../providers/app-provider'
 import { OnboardingProvider } from '../contexts/onboarding-context'
+import { PulseProvider } from '../providers/pulse-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,9 +20,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AppProvider>
-          <OnboardingProvider>
-            {children}
-          </OnboardingProvider>
+          <PulseProvider>
+            <OnboardingProvider>
+              {children}
+            </OnboardingProvider>
+          </PulseProvider>
         </AppProvider>
       </body>
     </html>
