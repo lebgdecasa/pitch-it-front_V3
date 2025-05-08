@@ -61,10 +61,10 @@ const appReducer = (state: AppState, action: AppAction): AppState => {
       return {
         ...state,
         projects: state.projects.map(p =>
-          p.id === action.payload.id ? action.payload : p
+          p.id === action.payload.id ? { ...p, ...action.payload, locked: action.payload.locked } : p
         ),
         currentProject: state.currentProject?.id === action.payload.id
-          ? action.payload
+          ? { ...state.currentProject, ...action.payload, locked: action.payload.locked }
           : state.currentProject
       };
     case 'SET_PROJECTS':

@@ -236,7 +236,8 @@ export const initialMockProjects: Project[] = [
     stage: ProjectStage.INVESTOR_READY,
     pitch: createDefaultPitch(),
     pitchDeck: createMockPitchDeck(),
-    feedback: createMockFeedback()
+    feedback: createMockFeedback(),
+    locked: true
   },
   {
     id: 'project-2',
@@ -274,7 +275,8 @@ export const initialMockProjects: Project[] = [
         notes: 'Interesting concept in a growing market. Consider HIPAA compliance and data security as key differentiators.',
         createdAt: new Date(Date.now() - 20 * 24 * 60 * 60 * 1000).toISOString()
       }
-    ]
+    ],
+    locked: true
   },
   {
     id: 'project-3',
@@ -285,6 +287,7 @@ export const initialMockProjects: Project[] = [
     createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
     stage: ProjectStage.PITCH_DECK,
+    locked: true,
     pitch: {
       problem: 'Traditional learning methods fail to engage students, resulting in poor retention and lack of interest.',
       solution: 'A gamified learning platform that makes education interactive and rewards progress.',
@@ -333,6 +336,7 @@ export const initialMockProjects: Project[] = [
   {
     id: 'project-4',
     userId: 'user-1',
+    locked: false,
     name: 'EpiDub',
     description: 'AI-powered dubbing platform for content creators and educators',
     industry: 'Technology / Sound Treatment',

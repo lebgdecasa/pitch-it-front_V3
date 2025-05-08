@@ -68,6 +68,7 @@ export interface Project {
   pitchDeck?: PitchDeck;
   feedback?: Feedback[];
   score?: number;
+  locked?: boolean; // New property to lock projects
 }
 
 // Group Chat Types

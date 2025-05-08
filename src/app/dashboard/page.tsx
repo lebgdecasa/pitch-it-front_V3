@@ -15,13 +15,15 @@ const ProjectCard = ({
   name,
   description,
   stage,
-  updatedAt
+  updatedAt,
+  locked
 }: {
   id: string;
   name: string;
   description: string;
   stage: ProjectStage;
   updatedAt: string | number | Date;
+  locked?: boolean;
 }) => {
   // Get stage color and label
   const stageInfo: Record<ProjectStage, { color: string; label: string; }> = {
@@ -51,7 +53,7 @@ const ProjectCard = ({
   const formattedDate = new Date(updatedAt).toLocaleDateString();
 
   return (
-    <Link href={`/project/${id}`} className="block">
+    <div className={`block ${locked ? 'opacity-50 cursor-not-allowed' : ''}`}>
       <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-5 border border-gray-100">
         <div className="flex justify-between items-start mb-3">
           <h3 className="text-lg font-semibold text-gray-900">{name}</h3>
@@ -60,10 +62,14 @@ const ProjectCard = ({
         <p className="text-gray-600 text-sm line-clamp-2 mb-4">{description}</p>
         <div className="flex justify-between items-center text-xs text-gray-500">
           <span>Last updated: {formattedDate}</span>
-          <span>View Project →</span>
+          {locked ? (
+            <span className="text-red-500 font-semibold">Locked</span>
+          ) : (
+            <Link href={`/project/${id}`}>View Project →</Link>
+          )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 
@@ -133,6 +139,7 @@ export default function Dashboard() {
                   description={project.description}
                   stage={project.stage}
                   updatedAt={project.updatedAt.toString()}
+                  locked={project.locked}
                 />
               ))}
             </div>
@@ -166,6 +173,7 @@ export default function Dashboard() {
                       description={project.description}
                       stage={project.stage}
                       updatedAt={project.updatedAt.toString()}
+                      locked={project.locked}
                     />
                   ))}
                 </div>
