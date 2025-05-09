@@ -230,7 +230,7 @@ export const createNewProject = (
     industry,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    stage: ProjectStage.IDEATION,
+    stage: ProjectStage.IDEA,
     pitch: createDefaultPitch(fullDescription)
   };
 };
@@ -245,7 +245,7 @@ export const initialMockProjects: Project[] = [
     industry: 'Technology',
     createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-    stage: ProjectStage.INVESTOR_READY,
+    stage: ProjectStage.SERIES_C,
     pitch: createDefaultPitch(),
     pitchDeck: createMockPitchDeck(),
     feedback: createMockFeedback(),
@@ -259,7 +259,7 @@ export const initialMockProjects: Project[] = [
     industry: 'Healthcare',
     createdAt: new Date(Date.now() - 45 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-    stage: ProjectStage.VALIDATION,
+    stage: ProjectStage.SEED,
     pitch: {
       problem: 'People struggle to maintain consistent health habits and track their wellness progress effectively.',
       solution: 'A mobile app that integrates with wearables to provide personalized health insights and recommendations.',
@@ -298,7 +298,7 @@ export const initialMockProjects: Project[] = [
     industry: 'Education',
     createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
-    stage: ProjectStage.PITCH_DECK,
+    stage: ProjectStage.PROTOTYPE,
     locked: true,
     pitch: {
       problem: 'Traditional learning methods fail to engage students, resulting in poor retention and lack of interest.',
@@ -357,7 +357,7 @@ export const initialMockProjects: Project[] = [
     industry: 'Technology / Sound Treatment',
     createdAt: new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString(),
     updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-    stage: ProjectStage.DEVELOPMENT,
+    stage: ProjectStage.MVP,
     pitch: {problem: "Content creators and wellness educators struggle to expand globally without losing their authentic voice and emotional connection in multilingual content.",
       solution: "An AI-powered dubbing tool that preserves the creator's original voice tone and emotion while translating it seamlessly into multiple languages.",
       targetMarket: "Influencers, content creators, and wellness educators looking to scale their reach across global audiences on platforms like YouTube, Instagram, TikTok, and wellness apps.",

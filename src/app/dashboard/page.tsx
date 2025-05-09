@@ -27,25 +27,25 @@ const ProjectCard = ({
 }) => {
   // Get stage color and label
   const stageInfo: Record<ProjectStage, { color: string; label: string; }> = {
-    [ProjectStage.IDEATION]: { color: 'bg-blue-100 text-blue-800', label: 'Ideation' },
-    [ProjectStage.VALIDATION]: { color: 'bg-purple-100 text-purple-800', label: 'Validation' },
-    [ProjectStage.PITCH_DECK]: { color: 'bg-amber-100 text-amber-800', label: 'Pitch Deck' },
-    [ProjectStage.INVESTOR_READY]: { color: 'bg-green-100 text-green-800', label: 'Investor Ready' },
-    [ProjectStage.DEVELOPMENT]: {
+    [ProjectStage.IDEA]: { color: 'bg-blue-100 text-blue-800', label: 'IDEA' },
+    [ProjectStage.SERIES_A]: { color: 'bg-purple-100 text-purple-800', label: 'SERIES A' },
+    [ProjectStage.SERIES_B]: { color: 'bg-amber-100 text-amber-800', label: 'SERIES B' },
+    [ProjectStage.SERIES_C]: { color: 'bg-green-100 text-green-800', label: 'SERIES C' },
+    [ProjectStage.PROTOTYPE]: {
       color: 'bg-blue-100 text-gray-800',
-      label: 'Development'
+      label: 'Prototype'
     },
-    [ProjectStage.REFINEMENT]: {
+    [ProjectStage.MVP]: {
       color: 'bg-gray-100 text-gray-800',
-      label: 'Refinement'
+      label: 'MVP'
     },
-    [ProjectStage.DECK_CREATION]: {
+    [ProjectStage.PRE_SEED]: {
       color: 'bg-red-100 text-gray-800',
-      label: 'Deck Creation'
+      label: 'PRE SEED'
     },
-    [ProjectStage.TESTING]: {
+    [ProjectStage.SEED]: {
       color: 'bg-yellow-100 text-yellow-800',
-      label: 'Testing'
+      label: 'SEED'
     }
   };
 
@@ -91,10 +91,14 @@ export default function Dashboard() {
 
   // Get projects by stage for grouping
   const projectsByStage = {
-    [ProjectStage.INVESTOR_READY]: projects.filter(p => p.stage === ProjectStage.INVESTOR_READY),
-    [ProjectStage.PITCH_DECK]: projects.filter(p => p.stage === ProjectStage.PITCH_DECK),
-    [ProjectStage.VALIDATION]: projects.filter(p => p.stage === ProjectStage.VALIDATION),
-    [ProjectStage.IDEATION]: projects.filter(p => p.stage === ProjectStage.IDEATION),
+    [ProjectStage.SERIES_C]: projects.filter(p => p.stage === ProjectStage.SERIES_C),
+    [ProjectStage.SERIES_B]: projects.filter(p => p.stage === ProjectStage.SERIES_B),
+    [ProjectStage.SERIES_A]: projects.filter(p => p.stage === ProjectStage.SERIES_A),
+    [ProjectStage.IDEA]: projects.filter(p => p.stage === ProjectStage.IDEA),
+    [ProjectStage.SEED]: projects.filter(p => p.stage === ProjectStage.SEED),
+    [ProjectStage.PROTOTYPE]: projects.filter(p => p.stage === ProjectStage.PROTOTYPE),
+    [ProjectStage.MVP]: projects.filter(p => p.stage === ProjectStage.MVP),
+    [ProjectStage.PRE_SEED]: projects.filter(p => p.stage === ProjectStage.PRE_SEED),
   };
 
   // Sort projects by updated date (newest first)
@@ -150,15 +154,14 @@ export default function Dashboard() {
             if (stageProjects.length === 0) return null;
 
             const stageLabels = {
-              [ProjectStage.IDEATION]: "Ideation Stage",
-              [ProjectStage.VALIDATION]: "Validation Stage",
-              [ProjectStage.PITCH_DECK]: "Pitch Deck Stage",
-              [ProjectStage.INVESTOR_READY]: "Investor Ready",
-              [ProjectStage.DEVELOPMENT]: "Development Stage",
-              [ProjectStage.REFINEMENT]: "Refinement Stage",
-              [ProjectStage.DECK_CREATION]: "Deck Creation Stage",
-              [ProjectStage.TESTING]: "Testing Stage"
-
+              [ProjectStage.IDEA]: "IDEA Stage",
+              [ProjectStage.SERIES_A]: "SERIES A Stage",
+              [ProjectStage.SERIES_B]: "SERIES B Stage",
+              [ProjectStage.SERIES_C]: "SERIES C Stage",
+              [ProjectStage.PRE_SEED]: "PRE SEED Stage",
+              [ProjectStage.SEED]: "SEED Stage",
+              [ProjectStage.PROTOTYPE]: "Prototype Stage",
+              [ProjectStage.MVP]: "MVP Stage",
             };
 
             return (

@@ -34,7 +34,7 @@ export const mockProjectData: ProjectData = {
       id: "name",
       name: "Project Name",
       value: "EcoTech Solutions",
-      isEditable: false
+      isEditable: true
     },
     {
       id: "industry",
@@ -46,7 +46,7 @@ export const mockProjectData: ProjectData = {
       id: "description",
       name: "Main Description",
       value: "Innovative clean technology solutions for sustainable future",
-      isEditable: false
+      isEditable: true
     },
     {
       id: "problem",

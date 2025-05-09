@@ -63,16 +63,16 @@ export default function Projects() {
             if (stageProjects.length === 0) return null;
 
             const stageInfo: Record<ProjectStage, { color: string; label: string }> = {
-              [ProjectStage.IDEATION]: { color: 'bg-blue-100 text-blue-800', label: 'Ideation Stage' },
-              [ProjectStage.VALIDATION]: { color: 'bg-purple-100 text-purple-800', label: 'Validation Stage' },
-              [ProjectStage.DECK_CREATION]: { color: 'bg-orange-100 text-orange-800', label: 'Deck Creation Stage' },
-              [ProjectStage.PITCH_DECK]: { color: 'bg-amber-100 text-amber-800', label: 'Pitch Deck Stage' },
-              [ProjectStage.INVESTOR_READY]: { color: 'bg-green-100 text-green-800', label: 'Investor Ready' },
-              [ProjectStage.DEVELOPMENT]: { color: 'bg-purple-100 text-purple-800 text-gray-800', label: 'Development Stage' },
-              [ProjectStage.REFINEMENT]: { color: 'bg-teal-100 text-teal-800', label: 'Refinement Stage' },
-              [ProjectStage.TESTING]: {
-                color: '',
-                label: ''
+              [ProjectStage.IDEA]: { color: 'bg-blue-100 text-blue-800', label: 'IDEA Stage' },
+              [ProjectStage.SERIES_A]: { color: 'bg-purple-100 text-purple-800', label: 'SERIES A Stage' },
+              [ProjectStage.PRE_SEED]: { color: 'bg-orange-100 text-orange-800', label: 'PRE-SEED Stage' },
+              [ProjectStage.SERIES_B]: { color: 'bg-amber-100 text-amber-800', label: 'SERIES B Stage' },
+              [ProjectStage.SERIES_C]: { color: 'bg-green-100 text-green-800', label: 'SERIES C Stage' },
+              [ProjectStage.PROTOTYPE]: { color: 'bg-purple-100 text-purple-800 text-gray-800', label: 'PROTOTYPE Stage' },
+              [ProjectStage.MVP]: { color: 'bg-teal-100 text-teal-800', label: 'MVP Stage' },
+              [ProjectStage.SEED]: {
+                color: 'bg-orange-100 text-gray-800',
+                label: 'Seed Stage'
               }
             };
 

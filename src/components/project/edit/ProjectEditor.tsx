@@ -3,22 +3,29 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, RefreshCw } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import EditableField from './EditableField';
 import { ProjectData, FieldEdit } from '../../../mocks/project-data';
 import { Card } from '@/ui/card';
+import { ProjectStage } from '../../../types';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
+
 
 interface ProjectEditorProps {
   project: ProjectData;
   onUpdate: (projectId: string, updates: { fields: any[], editHistory: FieldEdit[] }) => void;
+  projectStage?: ProjectStage; // Current project stage
+  projectId?: string; // Project ID for API calls
 }
 
-export default function ProjectEditor({ project, onUpdate }: ProjectEditorProps) {
+export default function ProjectEditor({ project, onUpdate, projectStage = ProjectStage.PRE_SEED, projectId = "proj-001" }: ProjectEditorProps) {
   const router = useRouter();
   const [fields, setFields] = useState(project.fields);
   const [editHistory, setEditHistory] = useState<FieldEdit[]>(project.editHistory);
   const [activeField, setActiveField] = useState<string | null>(null);
+  const [stage, setStage] = useState<ProjectStage>(projectStage);
+  const [isAnalysisRunning, setIsAnalysisRunning] = useState(false);
 
   const handleSave = (fieldId: string, newValue: string) => {
     const field = fields.find(f => f.id === fieldId);
@@ -51,6 +58,26 @@ export default function ProjectEditor({ project, onUpdate }: ProjectEditorProps)
     setActiveField(null);
   };
 
+  // Handle stage change
+  const handleStageChange = (newStage: ProjectStage) => {
+    setStage(newStage);
+    // In a real app, this would make an API call to update the project stage
+    console.log('Updating project stage:', projectId, newStage);
+  };
+
+  // Handle re-run analysis
+  const handleRerunAnalysis = () => {
+    setIsAnalysisRunning(true);
+
+    // Simulate analysis running
+
+    // In a real app, this would make an API call to start the analysis
+    // Simulate completion after 3 seconds
+    setTimeout(() => {
+      setIsAnalysisRunning(false);
+    }, 3000);
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-6">
@@ -66,6 +93,52 @@ export default function ProjectEditor({ project, onUpdate }: ProjectEditorProps)
         <p className="text-gray-500">
           Update your project information. Some fields are locked to maintain project consistency.
         </p>
+      </div>
+
+      {/* Project Stage Dropdown and Analysis Button */}
+      <div className="bg-white p-4 rounded-lg shadow-sm border mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">Project Stage</h3>
+            <Select value={stage} onValueChange={(value) => handleStageChange(value as ProjectStage)}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a stage" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ProjectStage.IDEA}>IDEA</SelectItem>
+                <SelectItem value={ProjectStage.PROTOTYPE}>PROTOTYPE</SelectItem>
+                <SelectItem value={ProjectStage.MVP}>MVP</SelectItem>
+                <SelectItem value={ProjectStage.PRE_SEED}>PRE-SEED</SelectItem>
+                <SelectItem value={ProjectStage.SEED}>SEED</SelectItem>
+                <SelectItem value={ProjectStage.SERIES_A}>SERIES A</SelectItem>
+                <SelectItem value={ProjectStage.SERIES_B}>SERIES B</SelectItem>
+                <SelectItem value={ProjectStage.SERIES_C}>SERIES C</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-medium text-gray-500 mb-2">Project Analysis</h3>
+            <Button
+              onClick={handleRerunAnalysis}
+              variant="outline"
+              disabled={isAnalysisRunning}
+              className="w-full"
+            >
+              {isAnalysisRunning ? (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-1 animate-spin" />
+                  Analyzing...
+                </>
+              ) : (
+                <>
+                  <RefreshCw className="h-4 w-4 mr-1" />
+                  Re-run Analysis
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
       </div>
 
       <div className="space-y-6">

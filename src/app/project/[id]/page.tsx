@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ChevronLeft, Edit, Download, Users } from 'lucide-react';
+import ShareTeamDialog from '@/components/project/ShareTeamDialog';
 import ActionButtons from '../../../components/project/ActionButtons';
 import analysisByProjectId from '../../../mocks/analysis-data';
 import { AnalysisSection } from '../../../components/project/dashboard/AnalysisSection';
@@ -90,39 +91,39 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   }
 
   const stageInfo: Partial<Record<ProjectStage, StageUIDetail>> = {
-    [ProjectStage.IDEATION]: {
+    [ProjectStage.IDEA]: {
       color: 'bg-blue-100 text-blue-800',
-      label: 'Ideation',
+      label: 'IDEA',
       description: 'Define your business idea and core concept.'
     },
-    [ProjectStage.VALIDATION]: { // Added
+    [ProjectStage.SERIES_A]: { // Added
       color: 'bg-purple-100 text-purple-800',
-      label: 'Validation',
+      label: 'SERIES A',
       description: 'Validate your idea and test assumptions.'
     },
-    [ProjectStage.DEVELOPMENT]: {
+    [ProjectStage.PROTOTYPE]: {
       color: 'bg-blue-100 text-gray-800', // Note: dashboard uses purple for validation, consider if this should be different
-      label: 'Development',
-      description: 'Develop and refine your business plan.'
+      label: 'PROTOTYPE',
+      description: 'Create a prototype to test your idea.'
     },
-    [ProjectStage.PITCH_DECK]: { // This was missing from your original ProjectPage stageInfo, but present in dashboard's ProjectCard
+    [ProjectStage.SERIES_B]: { // This was missing from your original ProjectPage stageInfo, but present in dashboard's ProjectCard
       color: 'bg-amber-100 text-amber-800',
-      label: 'Pitch Deck',
+      label: 'SERIES B',
       description: 'Prepare your pitch deck for presentation.' // Added from dashboard's ProjectCard, you might have this as DECK_CREATION
     },
-    [ProjectStage.DECK_CREATION]: { // Renamed from PITCH_DECK in dashboard's ProjectCard if this is the intended mapping
+    [ProjectStage.PRE_SEED]: { // Renamed from PITCH_DECK in dashboard's ProjectCard if this is the intended mapping
       color: 'bg-amber-100 text-amber-800',
-      label: 'Deck Creation',
+      label: 'PRE-SEED',
       description: 'Create your pitch presentation.'
     },
-    [ProjectStage.REFINEMENT]: {
+    [ProjectStage.MVP]: {
       color: 'bg-green-100 text-green-800',
-      label: 'Refinement',
+      label: 'MVP',
       description: 'Perfect your pitch and presentation.'
     },
-    [ProjectStage.INVESTOR_READY]: { // Added
+    [ProjectStage.SERIES_C]: { // Added
       color: 'bg-green-100 text-green-800',
-      label: 'Investor Ready',
+      label: 'SERIES C',
       description: 'Your project is ready for investor review.'
     }
     // Add other stages like TESTING if they are used and need a detail page view
@@ -141,12 +142,22 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
   // Determine the next stage for the project
   const getNextStage = () => {
     switch (project.stage) {
-      case ProjectStage.IDEATION:
-        return ProjectStage.DEVELOPMENT;
-      case ProjectStage.DEVELOPMENT:
-        return ProjectStage.DECK_CREATION;
-      case ProjectStage.DECK_CREATION:
-        return ProjectStage.REFINEMENT;
+      case ProjectStage.IDEA:
+        return ProjectStage.IDEA;
+      case ProjectStage.PROTOTYPE:
+        return ProjectStage.PROTOTYPE;
+      case ProjectStage.PRE_SEED:
+        return ProjectStage.PRE_SEED;
+      case ProjectStage.SEED:
+        return ProjectStage.SEED;
+      case ProjectStage.MVP:
+        return ProjectStage.MVP;
+      case ProjectStage.SERIES_A:
+        return ProjectStage.SERIES_A;
+      case ProjectStage.SERIES_B:
+        return ProjectStage.SERIES_B;
+      case ProjectStage.SERIES_C:
+        return ProjectStage.SERIES_C;
       default:
         return null;
     }
@@ -192,7 +203,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
                 Edit
               </Link>
             </Button>
-            {(project.stage === ProjectStage.DECK_CREATION || project.stage === ProjectStage.REFINEMENT) && (
+            <ShareTeamDialog
+              projectId={project.id}
+              projectName={project.name}
+              variant="outline"
+              size="sm"
+            />
+            {(project.stage === ProjectStage.PRE_SEED || project.stage === ProjectStage.MVP || project.stage === ProjectStage.SEED) && (
               <Button variant="outline" size="sm">
                 <Download className="h-4 w-4 mr-1" />
                 Download Deck
@@ -302,7 +319,7 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
               </div>
             )}
           </div>          {/* Pitch Deck Preview */}
-          {(project.stage === ProjectStage.DECK_CREATION || project.stage === ProjectStage.REFINEMENT) && project.pitchDeck?.slides.length ? (
+          {(project.stage === ProjectStage.PRE_SEED || project.stage === ProjectStage.MVP) && project.pitchDeck?.slides.length ? (
             <div className="bg-white rounded-lg shadow-sm border p-6 mb-6">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-semibold">Pitch Deck</h2>
