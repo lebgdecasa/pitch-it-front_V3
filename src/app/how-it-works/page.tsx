@@ -1,12 +1,27 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Sparkles, Rocket, Target, BarChart, FileText, ArrowRight, Check, Star, Sparkle, MessageCircle } from 'lucide-react';
+import {
+  Sparkles, // Kept for AI-theme
+  Rocket, // General "launch" theme
+  FileText, // For decks/documents
+  ArrowRight,
+  Check,
+  Star,
+  MessageCircle, // For Persona Chat
+  Lightbulb, // For Insights
+  Presentation, // For Virtual VC
+  FilePlus, // For New Project
+  Files, // For Documents section
+  BrainCircuit, // For AI Features
+  LayoutTemplate, // For Pitch Development Features
+  FolderKanban, // Alternative for Documents/Projects
+  NotebookPen // Alternative for project definition
+} from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '../../components/ui/button';
-import { motion } from 'framer-motion';
-import { useReducedMotion } from 'framer-motion';
+import { Button } from '../../components/ui/button'; // Assuming this path is correct
+import { motion, useReducedMotion } from 'framer-motion';
 
 export default function HowItWorks() {
   const [isVisible, setIsVisible] = useState(false);
@@ -16,49 +31,65 @@ export default function HowItWorks() {
     setIsVisible(true);
   }, []);
 
+  // Function to create placeholder image URL with specified dimensions and text
+  const createPlaceholderImage = (width: number, height: number, text: string, bgColor: string = "0E3A8C") => {
+    return `https://via.placeholder.com/${width}x${height}/${bgColor}/FFFFFF?text=${encodeURIComponent(text)}`;
+  };
+
   const steps = [
     {
-      icon: Sparkles,
-      title: "Describe your startup",
-      description: "Start by creating a project and defining your startup vision. Our AI-powered wizard guides you through the essential questions to build a compelling story.",
-      imageSrc: "/assets/hiw/step-wizard.png",
-      imageAlt: "Startup description wizard interface showing questionnaire form"
+      icon: FilePlus, // Changed from Sparkles
+      title: "1. Define Your Startup Vision",
+      description: "Kickstart your journey with our guided New Project Wizard. Systematically input core details, descriptions, and your startup stage, populating a comprehensive Project Overview that serves as your venture's foundation.",
+      // Placeholder: Illustrate the New Project Wizard (e.g., 'Basic Info' step) transitioning or showing a snippet of the populated Project Overview page.
+      imageDescription: "UI of the New Project Wizard, perhaps the 'Basic Info' or 'Description' step, alongside a glimpse of the Project Overview page with fields like 'Problem', 'Solution' populated.",
+      imageAlt: "Pitch-it New Project Wizard interface and Project Overview screen",
+      actualImageUrl: "/assets/hiw/step-wizard.png"
     },
     {
       icon: FileText,
-      title: "Build your pitch deck",
-      description: "Use our professionally designed templates to craft a stunning pitch deck that will captivate investors. Add your content, customize slides, and perfect your message.",
-      imageSrc: "/assets/hiw/step-deck-editor.png",
-      imageAlt: "Pitch deck editor interface showing slide templates and customization options"
+      title: "2. Build Your Compelling Pitch Deck",
+      description: "Access the Pitch Deck viewer to review your presentation slide by slide. Structure your narrative, from cover to financials, ensuring a logical flow. (Full editing capabilities are part of our vision!)",
+      // Placeholder: Show the Pitch Deck Viewer interface with the slide navigation list on one side and a sample slide (e.g., 'Our Solution') displayed.
+      imageDescription: "Screenshot of the Pitch Deck Viewer. Left panel shows slide titles (Cover, Problem, Solution, etc.). Main panel displays a sample slide, e.g., 'The Problem' or 'Our Solution'.",
+      imageAlt: "Pitch-it Pitch Deck Viewer with slide navigation and content preview",
+      actualImageUrl: "/assets/hiw/deck-viewer.png"
     },
     {
-      icon: Target,
-      title: "Match with investors",
-      description: "Our platform matches your startup with investors who are most likely to be interested in your industry and stage. Save time by focusing on qualified leads.",
-      imageSrc: "/assets/hiw/step-investor-list.png",
-      imageAlt: "Investor matching interface showing recommended investors for your startup"
+      icon: Files, // Changed from Target (Investor Matching)
+      title: "3. Centralize All Project Files",
+      description: "Keep everything organized in the Documents hub. Access user-uploaded files (like market research or financial models) and AI-generated reports (like Trend Analyses or Virtual VC summaries) all in one place.",
+      // Placeholder: Illustrate the Documents section, showing a list of diverse file types: some user-uploaded (e.g., 'Market_Research.pdf', 'Financials.xlsx') and some AI-generated ('Key_Trend_Analysis.pdf').
+      imageDescription: "The Documents section UI, displaying a list of files with names like 'Financial Projections 2024.xlsx', 'Netnographic Analysis - 2025-04-20.pdf', 'UserUploaded_BusinessPlan.docx'.",
+      imageAlt: "Pitch-it Documents hub showing various project-related files",
+      actualImageUrl: "/assets/hiw/documents.png"
     },
     {
-      icon: BarChart,
-      title: "Analyze engagement data",
-      description: "Monitor who views your pitch, how long they spend on each slide, and what aspects of your business generate the most interest.",
-      imageSrc: "/assets/hiw/step-analytics.png",
-      imageAlt: "Analytics dashboard showing pitch deck engagement metrics and investor activity"
+      icon: Lightbulb, // Changed from BarChart (Analytics)
+      title: "4. Uncover AI-Driven Insights",
+      description: "Leverage the Insights panel where our AI analyzes your project data. Discover key metrics, trends, and actionable suggestions related to your customers, market, and financials to refine your strategy.",
+      // Placeholder: Show the AI Insights panel with a few example insight cards (e.g., Customer insight: 'Users aged 25-34 show higher engagement...', Market insight: 'Growing trend in sustainable alternatives...').
+      imageDescription: "The AI Insights panel, displaying example insight cards with categories (Customer, Market, Financial), dates, statements, and confidence percentages.",
+      imageAlt: "Pitch-it AI Insights panel with actionable suggestions",
+      actualImageUrl: "/assets/hiw/ai-insights.png"
     },
     {
       icon: MessageCircle,
-      title: "Chat with Personas",
-      description: "Open a dedicated chat room with any persona, explore objections, refine positioning and capture insights that feed directly back into your deck.",
-      imageSrc: "/assets/hiw/chat.png",
-      imageAlt: "Screenshot of interactive persona chat interface",
-      id: "hiw-chat"
+      title: "5. Stress-Test with AI Personas",
+      description: "Engage in dynamic Q&A sessions in the Persona Chat. Test your pitch against AI-driven characters representing different stakeholder viewpoints (creators, marketers) to anticipate questions and refine your messaging.",
+      // Placeholder: Screenshot of the Persona Chat interface. Show the avatars of Alan, Brenda, Marcus, Danielle at the top, a sample user query in the chat, and a (mocked-up) response from one persona.
+      imageDescription: "The Persona Chat interface. Four avatars (Alan, Brenda, Marcus, Danielle) at the top. Chat log showing a user message (e.g., 'What do you think of my solution for content creators?') and an AI persona response.",
+      imageAlt: "Pitch-it Persona Chat with interactive AI personas",
+      actualImageUrl: "/assets/hiw/groupchat.png"
     },
     {
-      icon: Rocket,
-      title: "Secure your funding",
-      description: "When investors show interest, communicate directly through our platform. Schedule meetings, answer questions, and move toward closing your funding round.",
-      imageSrc: "/how-it-works/step-connect.png",
-      imageAlt: "Communication interface for connecting with interested investors"
+      icon: Presentation, // Changed from Rocket (Securing Funding)
+      title: "6. Practice Your Pitch with a Virtual VC",
+      description: "Rehearse your delivery in a simulated investor meeting using Virtual VC. Choose an investor profile, set session parameters, and get feedback on your performance, helping you build confidence for the real deal.",
+      // Placeholder: Illustrate the Virtual VC setup screen. Show the investor selection (Alex, Marcus, Samira cards), session settings (Duration, Difficulty, Focus Areas), and the 'Start Pitch Session' button.
+      imageDescription: "The Virtual VC setup screen. Show selectable investor profiles (e.g., Alex Morgan - Analytical), session settings (Duration, Difficulty), focus areas, and a 'Start Pitch Session' button.",
+      imageAlt: "Pitch-it Virtual VC pitch simulation setup screen",
+      actualImageUrl: "/assets/hiw/VVC.png"
     }
   ];
 
@@ -86,32 +117,27 @@ export default function HowItWorks() {
 
   const testimonials = [
     {
-      quote: "Pitch-it helped us raise our seed round in just 3 weeks. The investor matching feature connected us to VCs who were genuinely interested in our space.",
-      author: "Alex Chen",
-      position: "CEO, TechSprint",
-      raised: "$1.2M Seed",
-      avatar: "/assets/avatars/alex-chen.jpg"
+      quote: "Pitch-it's structured approach helped me organize my thoughts and create a coherent story for my MVP. The Project Overview is my go-to reference!",
+      author: "Jane D.",
+      position: "Founder, EpiDub",
+      raised: "Pre-Seed (Internal)", // Adjusted to reflect MVP stage
+      avatar: "/assets/avatars/sophie-laurent.jpg" // Generic placeholder
     },
     {
-      quote: "The analytics provided valuable insights into what investors cared about most in our business. We refined our pitch based on that data and closed our round.",
-      author: "Marcus Johnson",
-      position: "Co-founder, Virtu Health",
-      raised: "$3.5M Series A",
-      avatar: "/assets/avatars/marcus-williams.jpg"
+      quote: "Practicing with the Virtual VC and Persona Chat was a game-changer. I felt so much more confident and prepared for actual investor questions.",
+      author: "Alex C.",
+      position: "CEO, EcoTech Solutions",
+      raised: "Seed Round Prep", // Adjusted
+      avatar: "/assets/avatars/alex-chen.jpg" // Generic placeholder
     },
     {
-      quote: "As a solo founder, Pitch-it gave me the tools and guidance I needed to create a professional pitch deck that stood out to investors.",
-      author: "Elena Rodriguez",
-      position: "Founder, EcoPackage",
-      avatar: "/assets/avatars/sophie-laurent.jpg"
+      quote: "The AI Insights helped me spot a key market trend I hadn't fully considered. It's like having an extra analyst on the team.",
+      author: "Samira K.",
+      position: "Founder, HealthTrack Innovations",
+      avatar: "/assets/avatars/priya-patel.jpg" // Generic placeholder
     }
   ];
 
-  // Function to create placeholder image URL with specified dimensions and text
-  const createPlaceholderImage = (width: number, height: number, text: string, bgColor: string = "0E3A8C") => {
-    // Create a placeholder image URL using a placeholder service
-    return `https://via.placeholder.com/${width}x${height}/${bgColor}/FFFFFF?text=${encodeURIComponent(text)}`;
-  };
 
   return (
     <div className="bg-white">
@@ -126,7 +152,7 @@ export default function HowItWorks() {
               transition={{ duration: 0.6 }}
               className="text-5xl md:text-6xl font-bold text-white mb-3"
             >
-              Fundraising, simplified.
+              Craft, Refine, and Practice Your Pitch.
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -134,8 +160,8 @@ export default function HowItWorks() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-10 font-medium"
             >
-              Pitch-it helps founders create compelling pitch decks, connect with the right investors,
-              and close funding rounds faster with data-driven insights.
+              Pitch-it empowers founders to build compelling narratives, get AI-driven feedback,
+              and practice their delivery to perfection.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -162,10 +188,10 @@ export default function HowItWorks() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How Pitch-it Works
+              How Pitch-it Empowers You
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our streamlined process helps founders go from idea to funded in record time
+              Our streamlined process guides you from initial idea to a polished, practice-ready pitch.
             </p>
           </div>
 
@@ -177,31 +203,29 @@ export default function HowItWorks() {
           >
             {steps.map((step, index) => {
               const Icon = step.icon;
-              // Create placeholder image URLs if no real images are available
-              const imageUrl = step.imageSrc ? step.imageSrc :
-                createPlaceholderImage(900, 600, `UI for ${step.title}`, "0E3A8C");
+              //const imageUrl = createPlaceholderImage(900, 600, step.imageDescription, "0E3A8C");
 
               return (
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                  className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col"
                 >
                   <div className="h-[240px] overflow-hidden bg-gray-100 relative">
                     <Image
-                      src={imageUrl}
+                      src={step.actualImageUrl}
                       alt={step.imageAlt}
                       width={900}
                       height={600}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-6">
-                    <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-full mb-5 group-hover:bg-blue-200 transition-colors duration-300">
+                  <div className="p-6 flex flex-col flex-grow">
+                    <div className="inline-flex items-center justify-center p-3 bg-blue-100 rounded-full mb-5 self-start group-hover:bg-blue-200 transition-colors duration-300">
                       <Icon className="h-6 w-6 text-deep-blue" aria-hidden="true" />
                     </div>
                     <h3 className="text-xl font-semibold mb-3 text-gray-900">{step.title}</h3>
-                    <p className="text-gray-600">{step.description}</p>
+                    <p className="text-gray-600 flex-grow">{step.description}</p>
                   </div>
                 </motion.div>
               )
@@ -210,7 +234,7 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* Stats section */}
+      {/* Stats section - Kept generic as these are aspirational */}
       <section className="py-12 bg-gradient-to-r from-deep-blue to-blue-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
@@ -220,8 +244,8 @@ export default function HowItWorks() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 }}
             >
-              <p className="text-4xl md:text-5xl font-bold text-white mb-2">$100M+</p>
-              <p className="text-blue-200 text-lg">Funding raised</p>
+              <p className="text-4xl md:text-5xl font-bold text-white mb-2">1000s</p>
+              <p className="text-blue-200 text-lg">Pitches Perfected</p>
             </motion.div>
             <motion.div
               className="px-4"
@@ -229,8 +253,8 @@ export default function HowItWorks() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
-              <p className="text-4xl md:text-5xl font-bold text-white mb-2">3,200+</p>
-              <p className="text-blue-200 text-lg">Startups</p>
+              <p className="text-4xl md:text-5xl font-bold text-white mb-2">Millions</p>
+              <p className="text-blue-200 text-lg">Of AI Insights Generated</p>
             </motion.div>
             <motion.div
               className="px-4"
@@ -238,8 +262,8 @@ export default function HowItWorks() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
-              <p className="text-4xl md:text-5xl font-bold text-white mb-2">4,800+</p>
-              <p className="text-blue-200 text-lg">Investors</p>
+              <p className="text-4xl md:text-5xl font-bold text-white mb-2"> countless</p>
+              <p className="text-blue-200 text-lg">Hours Saved</p>
             </motion.div>
             <motion.div
               className="px-4"
@@ -247,8 +271,8 @@ export default function HowItWorks() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.4 }}
             >
-              <p className="text-4xl md:text-5xl font-bold text-white mb-2">82%</p>
-              <p className="text-blue-200 text-lg">Funding success rate</p>
+              <p className="text-4xl md:text-5xl font-bold text-white mb-2">Elevated</p>
+              <p className="text-blue-200 text-lg">Founder Confidence</p>
             </motion.div>
           </div>
         </div>
@@ -265,7 +289,7 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              Powerful Features for Founders
+              Powerful Tools for Ambitious Founders
             </motion.h2>
             <motion.p
               className="text-xl text-gray-600 max-w-3xl mx-auto"
@@ -274,46 +298,51 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Everything you need to create pitches that win investment
+              Everything you need to develop, analyze, and practice pitches that make an impact.
             </motion.p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
+          <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
             <motion.div
               className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300"
-              initial={{ opacity: 0, x: -20 }}
+              initial={{ opacity: 0, x: shouldReduceMotion ? 0 : -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
               <div className="p-8">
                 <div className="p-4 bg-blue-50 rounded-full inline-block mb-4">
-                  <Sparkle className="h-8 w-8 text-deep-blue" />
+                  <LayoutTemplate className="h-8 w-8 text-deep-blue" /> {/* Changed Icon */}
                 </div>
-                <h3 className="text-2xl font-semibold mb-4">AI-Powered Pitch Creation</h3>
+                <h3 className="text-2xl font-semibold mb-4">Comprehensive Pitch Development</h3>
                 <p className="text-gray-600 mb-6">
-                  Our AI assistant helps you craft compelling narratives about your business,
-                  generates financial projections, and suggests the right content for each slide
-                  based on your startup&apos;s stage and industry.
+                  From defining your core idea to structuring your deck and organizing files,
+                  Pitch-it provides a complete toolkit to build your pitch from the ground up.
                 </p>
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
                       <Check className="h-4 w-4 text-green-600" />
                     </div>
-                    <span className="text-gray-700">Guided pitch creation process</span>
+                    <span className="text-gray-700">Guided New Project Wizard</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
                       <Check className="h-4 w-4 text-green-600" />
                     </div>
-                    <span className="text-gray-700">Industry-specific templates</span>
+                    <span className="text-gray-700">Structured Pitch Deck Viewer</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
                       <Check className="h-4 w-4 text-green-600" />
                     </div>
-                    <span className="text-gray-700">Content suggestions for each slide</span>
+                    <span className="text-gray-700">Centralized Document Hub</span>
+                  </li>
+                   <li className="flex items-start">
+                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
+                      <Check className="h-4 w-4 text-green-600" />
+                    </div>
+                    <span className="text-gray-700">At-a-glance Project Overview</span>
                   </li>
                 </ul>
               </div>
@@ -321,38 +350,44 @@ export default function HowItWorks() {
 
             <motion.div
               className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow duration-300"
-              initial={{ opacity: 0, x: 20 }}
+              initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: shouldReduceMotion ? 0 : 0.2 }}
             >
               <div className="p-8">
                 <div className="p-4 bg-blue-50 rounded-full inline-block mb-4">
-                  <Target className="h-8 w-8 text-deep-blue" />
+                  <BrainCircuit className="h-8 w-8 text-deep-blue" /> {/* Changed Icon */}
                 </div>
-                <h3 className="text-2xl font-semibold mb-4">Investor Matching & Analytics</h3>
+                <h3 className="text-2xl font-semibold mb-4">AI-Powered Refinement & Practice</h3>
                 <p className="text-gray-600 mb-6">
-                  Connect with investors who are most likely to fund your startup. Track engagement
-                  with your pitch and understand what aspects of your business generate the most interest.
+                  Utilize AI to gain deeper insights, test your ideas against various personas,
+                  practice your delivery with a virtual VC, and even validate concepts with real-world feedback.
                 </p>
                 <ul className="space-y-4">
                   <li className="flex items-start">
                     <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
                       <Check className="h-4 w-4 text-green-600" />
                     </div>
-                    <span className="text-gray-700">Smart investor matching algorithm</span>
+                    <span className="text-gray-700">AI-Generated Project Insights</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
                       <Check className="h-4 w-4 text-green-600" />
                     </div>
-                    <span className="text-gray-700">Real-time viewing analytics</span>
+                    <span className="text-gray-700">Interactive Persona Chat Simulation</span>
                   </li>
                   <li className="flex items-start">
                     <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
                       <Check className="h-4 w-4 text-green-600" />
                     </div>
-                    <span className="text-gray-700">Secure investor communication portal</span>
+                    <span className="text-gray-700">Realistic Virtual VC Pitch Practice</span>
+                  </li>
+                   <li className="flex items-start">
+                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-green-100 flex items-center justify-center mr-3 mt-0.5">
+                      <Check className="h-4 w-4 text-green-600" />
+                    </div>
+                    <span className="text-gray-700">Real-World Pulse for User Research</span>
                   </li>
                 </ul>
               </div>
@@ -361,7 +396,7 @@ export default function HowItWorks() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials - Updated to be more aligned with MVP features */}
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-16">
@@ -381,24 +416,22 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              Hear from founders who raised funding using Pitch-it
+              Hear from founders who are leveraging Pitch-it to refine their vision
             </motion.p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => {
-              // Use placeholder image URL for avatar if the local image doesn't exist
-              const avatarUrl = testimonial.avatar ||
-                createPlaceholderImage(64, 64, testimonial.author.charAt(0), "0E3A8C");
+              const avatarUrl = testimonial.avatar || createPlaceholderImage(64, 64, testimonial.author.charAt(0), "0E3A8C");
 
               return (
                 <motion.div
                   key={index}
-                  className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-all duration-300"
+                  className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-all duration-300 flex flex-col"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  transition={{ duration: 0.5, delay: shouldReduceMotion ? 0 : (0.1 * index) }}
                 >
                   <div className="flex-1">
                     <div className="relative mb-6">
@@ -425,12 +458,14 @@ export default function HowItWorks() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="flex items-center">
-                      <Star className="h-5 w-5 text-yellow-500 mr-1" />
-                      <p className="text-deep-blue font-semibold">{testimonial.raised}</p>
+                  {testimonial.raised && (
+                    <div className="mt-4 pt-4 border-t border-gray-100">
+                      <div className="flex items-center">
+                        <Star className="h-5 w-5 text-yellow-500 mr-1" />
+                        <p className="text-deep-blue font-semibold">{testimonial.raised}</p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </motion.div>
               );
             })}
@@ -440,9 +475,7 @@ export default function HowItWorks() {
 
       {/* CTA section */}
       <section className="py-16 md:py-24 bg-gradient-to-r from-blue-900 to-deep-blue relative overflow-hidden">
-        {/* Background pattern */}
         <div className="absolute inset-0 opacity-10 bg-grid-white pointer-events-none"></div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center relative">
           <motion.h2
             className="text-3xl md:text-5xl font-bold text-white mb-6"
@@ -451,7 +484,7 @@ export default function HowItWorks() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Ready to Accelerate Your Fundraising?
+            Ready to Perfect Your Pitch?
           </motion.h2>
           <motion.p
             className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8"
@@ -460,7 +493,7 @@ export default function HowItWorks() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Join thousands of founders who&apos;ve simplified their fundraising process with Pitch-it.
+            Join founders who are using Pitch-it to build confidence and craft winning presentations.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -473,7 +506,7 @@ export default function HowItWorks() {
               size="lg"
               className="bg-white text-deep-blue hover:bg-blue-50 px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              <Link href="/signup" className="flex items-center font-medium">
+              <Link href="/auth" className="flex items-center font-medium">
                 Get Started Free
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
