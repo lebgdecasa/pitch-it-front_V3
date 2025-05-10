@@ -63,7 +63,7 @@ export const Sidebar = () => {
     >
       <div className={`px-3 mb-6 flex ${collapsed ? 'justify-center' : 'justify-between'} items-center`}>
         {!collapsed && (
-          <Link href="/" className="flex items-center">
+          <Link href="/dashboard" className="flex items-center">
             <span className="text-xl font-bold text-deep-blue">Pitch-it</span>
           </Link>
         )}
