@@ -10,7 +10,7 @@ import {
   Award,
   Settings,
   HelpCircle,
-  ChevronLeft,
+  Presentation,
   Menu,
   X,
   BarChart,
@@ -53,7 +53,7 @@ export const ProjectSidebar = () => {
       href: `/project/${projectId}`
     },
     {
-      icon: FileText,
+      icon: Presentation,
       label: 'Pitch Deck',
       href: `/project/${projectId}/deck`
     },

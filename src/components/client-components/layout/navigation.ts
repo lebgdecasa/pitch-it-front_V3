@@ -1,5 +1,5 @@
 // src/components/client-components/layout/navigation.ts
-import { Home, MessageCircle, FileText, Lightbulb, BarChart2, Video, Settings, ArrowLeft } from 'lucide-react';
+import { Home, MessageCircle, FileText, Lightbulb, BarChart2, Video, Settings, ArrowLeft, Presentation } from 'lucide-react';
 
 export const mainNavItems = [
   {
@@ -13,7 +13,7 @@ export const mainNavItems = [
     href: '/project/:id/chat'
   },
   {
-    icon: FileText,
+    icon: Presentation,
     label: 'Pitch Deck',
     href: '/project/:id/deck'
   },
