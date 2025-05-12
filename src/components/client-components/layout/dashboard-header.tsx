@@ -17,14 +17,12 @@ export const DashboardHeader = () => {
         <div className="flex justify-between items-center h-16">
           {/* Left section */}
           <div className="flex items-center">
+            <Link href="/dashboard" >
+              <span className="text-xl font-bold text-deep-blue mr-2">Pitch-it</span>
+            </Link>
             <button className="p-2 rounded-md text-gray-500 lg:hidden">
               <Menu className="h-6 w-6" />
             </button>
-            <Link href="/dashboard" className="flex items-center">
-              <span className="text-xl font-bold text-deep-blue ml-2 mr-2">Pitch-it</span>
-            </Link>
-            <div className="ml-4">
-            </div>
           </div>
 
           {/* Search bar - hidden on small screens */}
