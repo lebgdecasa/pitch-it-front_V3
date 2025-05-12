@@ -21,6 +21,7 @@ type AppState = {
   projects: Project[];
   isLoading: boolean;
   error: string | null;
+  imageUrl: string | null;
 };
 
 type AppAction =
@@ -43,6 +44,7 @@ const initialState: AppState = {
   projects: initialMockProjects,
   isLoading: false,
   error: null,
+  imageUrl: null,
 };
 
 const appReducer = (state: AppState, action: AppAction): AppState => {

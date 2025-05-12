@@ -37,11 +37,7 @@ export const mainNavItems = [
     label: 'Virtual VC',
     href: '/project/:id/virtual-vc/setup'
   },
-  {
-    icon: Settings,
-    label: 'Settings',
-    href: '/settings'
-  },
+  
 ];
 
 export const backNavItem = {

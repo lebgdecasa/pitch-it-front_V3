@@ -6,6 +6,7 @@ export interface User {
   plan: 'free' | 'pro' | 'enterprise';
   createdAt: string;
   projectsCount: number;
+  imageUrl?: string; // Added for user profile image
 }
 
 // Pitch Types
