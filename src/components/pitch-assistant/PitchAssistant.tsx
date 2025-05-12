@@ -1,19 +1,14 @@
 import React from 'react';
-import { Check, ChevronUp, ChevronDown, X } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { PitchDimension } from '../../types/pitch-assistant';
-import PitchExample from './PitchExample';
 
 interface PitchAssistantProps {
   coveredDimensions: PitchDimension[];
-  nextDimension: PitchDimension | null;
-  feedbackMessage: string;
   onClose: () => void;
 }
 
 const PitchAssistant: React.FC<PitchAssistantProps> = ({
   coveredDimensions,
-  nextDimension,
-  feedbackMessage,
   onClose
 }) => {
   // Import all dimensions
@@ -32,8 +27,8 @@ const PitchAssistant: React.FC<PitchAssistantProps> = ({
           </span>
           Pitch Assistant
         </h3>
-        <button 
-          onClick={onClose} 
+        <button
+          onClick={onClose}
           className="md:hidden p-1 rounded-full hover:bg-gray-100"
           aria-label="Close assistant"
         >
@@ -48,8 +43,8 @@ const PitchAssistant: React.FC<PitchAssistantProps> = ({
           <span className="text-gray-600">{percentComplete}%</span>
         </div>
         <div className="w-full bg-gray-200 rounded-full h-2">
-          <div 
-            className="bg-green-500 h-2 rounded-full transition-all duration-300 ease-in-out" 
+          <div
+            className="bg-green-500 h-2 rounded-full transition-all duration-300 ease-in-out"
             style={{ width: `${percentComplete}%` }}
           ></div>
         </div>
@@ -62,14 +57,14 @@ const PitchAssistant: React.FC<PitchAssistantProps> = ({
           {pitchDimensions.map((dimension: PitchDimension) => {
             const isCovered = coveredDimensions.some(d => d.id === dimension.id);
             return (
-              <div 
-                key={dimension.id} 
+              <div
+                key={dimension.id}
                 className={`p-2 rounded-md flex items-center justify-between ${
                   isCovered ? 'bg-green-50' : 'bg-white'
                 }`}
               >
                 <span className="text-sm">{dimension.name}</span>
-                <div 
+                <div
                   className={`w-5 h-5 flex items-center justify-center rounded-full ${
                     isCovered ? 'bg-green-500' : 'bg-gray-200'
                   }`}
@@ -81,25 +76,6 @@ const PitchAssistant: React.FC<PitchAssistantProps> = ({
           })}
         </div>
       </div>
-
-      {/* Feedback section */}
-      {feedbackMessage && (
-        <div className="mb-6 border-l-4 border-indigo-500 bg-indigo-50 p-3 rounded-r-md">
-          <p className="text-sm text-gray-800">{feedbackMessage}</p>
-        </div>
-      )}
-
-      {/* Next dimension prompt */}
-      {nextDimension && (
-        <div className="mb-6 bg-gray-50 p-3 rounded-md">
-          <h4 className="font-medium text-gray-700 mb-1 text-sm">Tell me more about:</h4>
-          <p className="text-sm font-semibold text-deep-blue">{nextDimension.name}</p>
-          <p className="text-xs text-gray-600 mt-1">{nextDimension.description}</p>
-          
-          {/* Example toggle */}
-          <PitchExample dimension={nextDimension} />
-        </div>
-      )}
     </div>
   );
 };

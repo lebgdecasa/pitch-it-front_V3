@@ -51,7 +51,11 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
       newErrors.projectName = 'Project name is required';
     }
 
-    if (!data.industry && !customIndustry) {
+    if (data.industry === 'Other') {
+      if (!customIndustry.trim()) {
+        newErrors.industry = 'Industry is required';
+      }
+    } else if (!data.industry) {
       newErrors.industry = 'Industry is required';
     }
 
@@ -61,6 +65,9 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
 
   const handleNext = () => {
     if (validate()) {
+      if (data.industry === 'Other') {
+        onDataChange({ ...data, industry: customIndustry.trim() });
+      }
       onNext();
     }
   };
@@ -118,10 +125,6 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
             value={customIndustry}
             onChange={(e) => {
               setCustomIndustry(e.target.value);
-              onDataChange({
-                ...data,
-                industry: e.target.value
-              });
             }}
           />
         )}

@@ -9,6 +9,7 @@ import { createNewProject } from '../../mocks';
 import PitchAssistant from '../../components/pitch-assistant/PitchAssistant';
 import { checkDimensions } from '../../components/pitch-assistant/pitch-dimensions';
 import { PitchDimension } from '@/types/pitch-assistant';
+import PitchExample from '../../components/pitch-assistant/PitchExample';
 
 // Step 1 - Project Basics Form
 const ProjectBasicsForm = ({
@@ -102,6 +103,23 @@ const PitchDescriptionForm = ({
             className="w-full p-3 border border-gray-300 rounded-md focus:ring-deep-blue focus:border-deep-blue"
             placeholder="Describe your business idea in detail. Cover all important aspects like the problem you're solving, your solution, target audience, etc."
           ></textarea>
+
+          {/* Feedback section - MOVED HERE */}
+          {feedbackMessage && (
+            <div className="mt-4 mb-6 border-l-4 border-indigo-500 bg-indigo-50 p-3 rounded-r-md">
+              <p className="text-sm text-gray-800">{feedbackMessage}</p>
+            </div>
+          )}
+
+          {/* Next dimension prompt - MOVED HERE */}
+          {nextDimension && (
+            <div className="mt-4 mb-6 bg-gray-50 p-3 rounded-md">
+              <h4 className="font-medium text-gray-700 mb-1 text-sm">Tell me more about:</h4>
+              <p className="text-sm font-semibold text-deep-blue">{nextDimension.name}</p>
+              <p className="text-xs text-gray-600 mt-1">{nextDimension.description}</p>
+              <PitchExample dimension={nextDimension} />
+            </div>
+          )}
         </div>
 
         {/* Mobile assistant toggle */}
@@ -122,8 +140,6 @@ const PitchDescriptionForm = ({
           >
             <PitchAssistant
               coveredDimensions={coveredDimensions}
-              nextDimension={nextDimension}
-              feedbackMessage={feedbackMessage}
               onClose={() => setShowAssistant(false)}
             />
           </div>
