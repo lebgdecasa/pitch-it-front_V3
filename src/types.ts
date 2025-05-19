@@ -79,7 +79,7 @@ export interface Project {
 // Group Chat Types
 export interface ChatMessage {
   id: string;
-  persona: 'founder' | 'investor' | 'mentor' | 'customer' | 'user';
+  persona: 'founder' | 'investor' | 'mentor' | 'customer' | 'user' | 'Freelance Animator and Content Creator' | 'Marketing Manager at a Tech Startup' | 'Independent Online Educator';
   content: string;
   timestamp: string;
   avatarUrl?: string;

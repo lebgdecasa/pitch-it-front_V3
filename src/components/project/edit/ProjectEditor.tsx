@@ -90,7 +90,7 @@ export default function ProjectEditor({ project, onUpdate, onSaveVersion, projec
     onSaveVersion(versionName, { fields, editHistory });
     setIsVersionModalOpen(false);
     // Optionally, provide feedback to the user, e.g., a toast notification
-    alert(`Project version "${versionName}" saved!`);
+    
   };
 
   return (
