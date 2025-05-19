@@ -1,6 +1,6 @@
 // src/components/client-components/project/metrics-badges.tsx
 import React from 'react';
-import { TrendingUp, TrendingDown, DollarSign, Users, HelpCircle, Target, Briefcase, BarChart, Percent } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, Users, HelpCircle, Target, Briefcase, BarChart, Percent, Clock, Zap, CalendarDays, Rocket } from 'lucide-react';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipWrapper } from '@/components/ui/tooltip';
 import { FinancialMetric } from '@/mocks/financial-metrics';
 
@@ -12,6 +12,12 @@ interface MetricsBadgesProps {
   potentialEarnings?: FinancialMetric;
   marketGrowthRate?: FinancialMetric;
   projectedMarketShare?: FinancialMetric;
+  averageGrossMargin?: FinancialMetric;
+  typicalCacPayback?: FinancialMetric;
+  avgTimeToMvp?: FinancialMetric;
+  avgTimeToFirstRevenue?: FinancialMetric;
+  avgSalesCycleLength?: FinancialMetric;
+  seedToLaunchWindow?: FinancialMetric;
   isLoading?: boolean;
 }
 
@@ -90,11 +96,26 @@ const MetricBadge = ({ metric, icon: Icon, defaultIconColor = 'text-gray-600' }:
   );
 };
 
-export const MetricsBadges = ({ cac, cltv, ratio, tam, potentialEarnings, marketGrowthRate, projectedMarketShare, isLoading = false }: MetricsBadgesProps) => {
+export const MetricsBadges = ({
+  cac,
+  cltv,
+  ratio,
+  tam,
+  potentialEarnings,
+  marketGrowthRate,
+  projectedMarketShare,
+  averageGrossMargin,
+  typicalCacPayback,
+  avgTimeToMvp,
+  avgTimeToFirstRevenue,
+  avgSalesCycleLength,
+  seedToLaunchWindow,
+  isLoading = false
+}: MetricsBadgesProps) => {
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 animate-pulse">
-        {[1, 2, 3, 4, 5, 6, 7].map((item) => (
+        {Array.from({ length: 13 }).map((_, item) => (
           <div key={item} className="h-24 w-full bg-gray-200 rounded-md"></div>
         ))}
       </div>
@@ -103,14 +124,37 @@ export const MetricsBadges = ({ cac, cltv, ratio, tam, potentialEarnings, market
 
   return (
     <TooltipWrapper>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        <MetricBadge metric={cac} icon={DollarSign} defaultIconColor="text-red-600" />
-        <MetricBadge metric={cltv} icon={Users} defaultIconColor="text-green-600" />
-        <MetricBadge metric={ratio} icon={TrendingUp} defaultIconColor="text-green-600" />
-        <MetricBadge metric={tam} icon={Target} defaultIconColor="text-blue-600" />
-        <MetricBadge metric={potentialEarnings} icon={Briefcase} defaultIconColor="text-purple-600" />
-        <MetricBadge metric={marketGrowthRate} icon={BarChart} defaultIconColor="text-yellow-600" />
-        <MetricBadge metric={projectedMarketShare} icon={Percent} defaultIconColor="text-indigo-600" />
+      <div className="space-y-8">
+        <div>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Time to Market</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <MetricBadge metric={avgTimeToMvp} icon={Clock} defaultIconColor="text-cyan-600" />
+            <MetricBadge metric={avgTimeToFirstRevenue} icon={Zap} defaultIconColor="text-orange-600" />
+            <MetricBadge metric={avgSalesCycleLength} icon={CalendarDays} defaultIconColor="text-pink-600" />
+            <MetricBadge metric={seedToLaunchWindow} icon={Rocket} defaultIconColor="text-lime-600" />
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Profitability</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <MetricBadge metric={cac} icon={DollarSign} defaultIconColor="text-red-600" />
+            <MetricBadge metric={cltv} icon={Users} defaultIconColor="text-green-600" />
+            <MetricBadge metric={ratio} icon={TrendingUp} defaultIconColor="text-green-600" />
+            <MetricBadge metric={averageGrossMargin} icon={Percent} defaultIconColor="text-teal-600" />
+            <MetricBadge metric={typicalCacPayback} icon={TrendingDown} defaultIconColor="text-green-600" />
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">Potential</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <MetricBadge metric={tam} icon={Target} defaultIconColor="text-blue-600" />
+            <MetricBadge metric={potentialEarnings} icon={Briefcase} defaultIconColor="text-purple-600" />
+            <MetricBadge metric={marketGrowthRate} icon={BarChart} defaultIconColor="text-yellow-600" />
+            <MetricBadge metric={projectedMarketShare} icon={Percent} defaultIconColor="text-indigo-600" />
+          </div>
+        </div>
       </div>
     </TooltipWrapper>
   );

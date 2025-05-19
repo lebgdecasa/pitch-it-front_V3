@@ -236,6 +236,12 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
               potentialEarnings={financialMetrics.potentialEarnings}
               marketGrowthRate={financialMetrics.marketGrowthRate}
               projectedMarketShare={financialMetrics.projectedMarketShare}
+              averageGrossMargin={financialMetrics.averageGrossMargin}
+              typicalCacPayback={financialMetrics.typicalCacPayback}
+              avgTimeToMvp={financialMetrics.avgTimeToMvp}
+              avgTimeToFirstRevenue={financialMetrics.avgTimeToFirstRevenue}
+              avgSalesCycleLength={financialMetrics.avgSalesCycleLength}
+              seedToLaunchWindow={financialMetrics.seedToLaunchWindow}
             />
           </div>
 

@@ -17,6 +17,12 @@ export interface FinancialMetrics {
   potentialEarnings: FinancialMetric;
   marketGrowthRate: FinancialMetric;
   projectedMarketShare: FinancialMetric;
+  averageGrossMargin: FinancialMetric;
+  typicalCacPayback: FinancialMetric;
+  avgTimeToMvp: FinancialMetric;
+  avgTimeToFirstRevenue: FinancialMetric;
+  avgSalesCycleLength: FinancialMetric;
+  seedToLaunchWindow: FinancialMetric;
 }
 
 export const financialMetrics: FinancialMetrics = {
@@ -77,5 +83,53 @@ export const financialMetrics: FinancialMetrics = {
     suffix: '%',
     trend: 'up',
     trendValue: 1.2
+  },
+  averageGrossMargin: {
+    value: 60, // Assumed value
+    label: 'Avg. Gross Margin',
+    tooltip: 'Shows pricing power vs. cost structure in the vertical',
+    suffix: '%',
+    trend: 'up', // Assumed trend
+    trendValue: 1.5 // Assumed trend value
+  },
+  typicalCacPayback: {
+    value: 12, // Assumed value
+    label: 'CAC Payback',
+    tooltip: 'Payback ≤ 18 mo is a SaaS rule-of-thumb for capital-efficient growth',
+    suffix: ' months',
+    trend: 'down', // Assumed trend (lower is better)
+    trendValue: -0.5 // Assumed trend value
+  },
+  avgTimeToMvp: {
+    value: 16, // Assumed value
+    label: 'Time to MVP',
+    tooltip: 'Signals execution speed: how quickly similar startups ship, monetize, and close deals',
+    suffix: ' weeks',
+    trend: 'down', // Assumed trend (lower is better)
+    trendValue: -1 // Assumed trend value
+  },
+  avgTimeToFirstRevenue: {
+    value: 6, // Assumed value
+    label: 'Time to Revenue',
+    tooltip: 'Avg. Time to First Revenue (months)',
+    suffix: ' months',
+    trend: 'down', // Assumed trend (lower is better)
+    trendValue: -0.3 // Assumed trend value
+  },
+  avgSalesCycleLength: {
+    value: 90, // Assumed value
+    label: 'Sales Cycle',
+    tooltip: 'Avg. Sales-Cycle Length (days)',
+    suffix: ' days',
+    trend: 'down', // Assumed trend (lower is better)
+    trendValue: -5 // Assumed trend value
+  },
+  seedToLaunchWindow: {
+    value: 9, // Assumed value
+    label: 'Seed to Launch',
+    tooltip: 'Seed-to-Launch Window (months)',
+    suffix: ' months',
+    trend: 'down', // Assumed trend (lower is better)
+    trendValue: -0.7 // Assumed trend value
   }
 };
