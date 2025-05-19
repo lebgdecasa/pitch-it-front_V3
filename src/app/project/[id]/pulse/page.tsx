@@ -97,7 +97,7 @@ export default function PulsePage() {
                 View Pulse Results
               </CardTitle>
               <CardDescription>
-                See insights from your previous research sessions
+                See Memories from your previous research sessions
               </CardDescription>
             </CardHeader>
             <CardContent>

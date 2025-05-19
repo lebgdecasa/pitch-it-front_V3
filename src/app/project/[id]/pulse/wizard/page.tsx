@@ -40,6 +40,9 @@ export default function PulseWizardPage() {
         surveys: true,
         interviews: false
       }
+    },
+    review: { // Added review section for new options
+      emailNotification: false
     }
   });
 
@@ -121,6 +124,8 @@ export default function PulseWizardPage() {
     <ReviewStep
       key="review"
       formData={formData}
+      reviewData={formData.review} // Pass review specific data
+      updateReviewData={(data: { emailNotification: boolean }) => updateFormData('review', data)} // Pass updater for review data
       projectName={project?.name || 'Your Project'}
       cost={calculateCost()}
       eta={calculateETA()}

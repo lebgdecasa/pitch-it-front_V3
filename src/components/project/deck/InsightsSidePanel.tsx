@@ -12,17 +12,17 @@ interface InsightsSidePanelProps {
   onToggleCollapse: () => void;
 }
 
-export const InsightsSidePanel: React.FC<InsightsSidePanelProps> = ({ 
-  isCollapsed, 
-  onToggleCollapse 
+export const InsightsSidePanel: React.FC<InsightsSidePanelProps> = ({
+  isCollapsed,
+  onToggleCollapse
 }) => {
   const [selectedTab, setSelectedTab] = useState<string>('ai');
-  
+
   const aiInsights = insights.filter(insight => insight.source === 'ai');
   const manualInsights = insights.filter(insight => insight.source === 'manual');
 
   return (
-    <div 
+    <div
       className={`border-l border-gray-200 bg-white transition-all duration-300 flex flex-col h-screen
         ${isCollapsed ? 'w-12' : 'w-96'}`}
     >
@@ -38,7 +38,7 @@ export const InsightsSidePanel: React.FC<InsightsSidePanelProps> = ({
         </div>
       ) : (
         <div className="p-3 border-b border-gray-200 flex justify-between items-center">
-          <h2 className="font-semibold text-lg">Insights</h2>
+          <h2 className="font-semibold text-lg">Memories</h2>
           <button
             onClick={onToggleCollapse}
             className="p-1 rounded-full hover:bg-gray-100"
@@ -53,13 +53,13 @@ export const InsightsSidePanel: React.FC<InsightsSidePanelProps> = ({
         <>
           <div className="p-3">
             <p className="text-sm text-gray-600">
-              Drag insights onto slides to add them to your notes
+              Drag memories onto slides to add them to your notes
             </p>
           </div>
-          
-          <Tabs 
-            defaultValue="ai" 
-            value={selectedTab} 
+
+          <Tabs
+            defaultValue="ai"
+            value={selectedTab}
             onValueChange={setSelectedTab}
             className="flex-1 flex flex-col"
           >
@@ -67,25 +67,25 @@ export const InsightsSidePanel: React.FC<InsightsSidePanelProps> = ({
               <TabsList className="w-full">
                 <TabsTrigger value="ai" className="flex-1 flex items-center justify-center">
                   <Sparkles size={16} className="mr-1.5" />
-                  AI Insights
+                  AI Memories
                 </TabsTrigger>
                 <TabsTrigger value="manual" className="flex-1 flex items-center justify-center">
                   <Lightbulb size={16} className="mr-1.5" />
-                  Team Insights
+                  Team Memories
                 </TabsTrigger>
               </TabsList>
             </div>
-            
-            <TabsContent 
-              value="ai" 
+
+            <TabsContent
+              value="ai"
               className="flex-1 p-3 overflow-y-auto mt-0"
             >
               {aiInsights.length > 0 ? (
                 <div className="space-y-3">
                   {aiInsights.map(insight => (
-                    <DraggableInsightCard 
-                      key={insight.id} 
-                      insight={insight} 
+                    <DraggableInsightCard
+                      key={insight.id}
+                      insight={insight}
                     />
                   ))}
                 </div>
@@ -96,17 +96,17 @@ export const InsightsSidePanel: React.FC<InsightsSidePanelProps> = ({
                 </div>
               )}
             </TabsContent>
-            
-            <TabsContent 
-              value="manual" 
+
+            <TabsContent
+              value="manual"
               className="flex-1 p-3 overflow-y-auto mt-0"
             >
               {manualInsights.length > 0 ? (
                 <div className="space-y-3">
                   {manualInsights.map(insight => (
-                    <DraggableInsightCard 
-                      key={insight.id} 
-                      insight={insight} 
+                    <DraggableInsightCard
+                      key={insight.id}
+                      insight={insight}
                     />
                   ))}
                 </div>

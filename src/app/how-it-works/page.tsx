@@ -67,10 +67,10 @@ export default function HowItWorks() {
     {
       icon: Lightbulb, // Changed from BarChart (Analytics)
       title: "4. Uncover AI-Driven Insights",
-      description: "Leverage the Insights panel where our AI analyzes your project data. Discover key metrics, trends, and actionable suggestions related to your customers, market, and financials to refine your strategy.",
+      description: "Leverage the Memories panel where our AI analyzes your project data. Discover key metrics, trends, and actionable suggestions related to your customers, market, and financials to refine your strategy.",
       // Placeholder: Show the AI Insights panel with a few example insight cards (e.g., Customer insight: 'Users aged 25-34 show higher engagement...', Market insight: 'Growing trend in sustainable alternatives...').
-      imageDescription: "The AI Insights panel, displaying example insight cards with categories (Customer, Market, Financial), dates, statements, and confidence percentages.",
-      imageAlt: "Pitch-it AI Insights panel with actionable suggestions",
+      imageDescription: "The AI Memories panel, displaying example insight cards with categories (Customer, Market, Financial), dates, statements, and confidence percentages.",
+      imageAlt: "Pitch-it AI Memories panel with actionable suggestions",
       actualImageUrl: "/assets/hiw/ai-insights.png"
     },
     {
@@ -131,7 +131,7 @@ export default function HowItWorks() {
       avatar: "/assets/avatars/alex-chen.jpg" // Generic placeholder
     },
     {
-      quote: "The AI Insights helped me spot a key market trend I hadn't fully considered. It's like having an extra analyst on the team.",
+      quote: "The AI Memories helped me spot a key market trend I hadn't fully considered. It's like having an extra analyst on the team.",
       author: "Samira K.",
       position: "Founder, HealthTrack Innovations",
       avatar: "/assets/avatars/priya-patel.jpg" // Generic placeholder
@@ -254,7 +254,7 @@ export default function HowItWorks() {
               transition={{ duration: 0.4, delay: 0.2 }}
             >
               <p className="text-4xl md:text-5xl font-bold text-white mb-2">Millions</p>
-              <p className="text-blue-200 text-lg">Of AI Insights Generated</p>
+              <p className="text-blue-200 text-lg">Of AI Memories Generated</p>
             </motion.div>
             <motion.div
               className="px-4"

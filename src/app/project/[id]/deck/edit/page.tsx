@@ -233,14 +233,14 @@ export default function EditDeckPage() {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Presenter Notes (Drag insights here)
+              Presenter Notes (Drag Memories here)
             </label>
             <textarea
               value={activeSlide?.notes || ''}
               onChange={(e) => handleSlideNotesChange(e.target.value)}
               className={`w-full p-3 border rounded-md focus:outline-none resize-none min-h-[100px]
                 ${isOver ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}
-              placeholder="Add presenter notes here or drag insights..."
+              placeholder="Add presenter notes here or drag Memories..."
             />
           </div>
         </div>

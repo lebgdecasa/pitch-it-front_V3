@@ -30,6 +30,10 @@ interface ReviewStepProps {
       };
     };
   };
+  reviewData: {
+    emailNotification: boolean;
+  };
+  updateReviewData: (data: { emailNotification: boolean }) => void;
   projectName: string;
   cost: number;
   eta: string;
@@ -37,6 +41,8 @@ interface ReviewStepProps {
 
 const ReviewStep: React.FC<ReviewStepProps> = ({
   formData,
+  reviewData,
+  updateReviewData,
   projectName,
   cost,
   eta
@@ -187,6 +193,22 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
             <span className="text-sm text-gray-700">Expected Delivery:</span>
             <span className="font-medium text-gray-900">{eta}</span>
           </div>
+        </div>
+      </div>
+
+      {/* Email Notification Opt-in */}
+      <div className="bg-white p-5 rounded-lg border border-gray-200">
+        <div className="flex items-center">
+          <input
+            type="checkbox"
+            id="emailNotification"
+            checked={reviewData.emailNotification}
+            onChange={(e) => updateReviewData({ ...reviewData, emailNotification: e.target.checked })}
+            className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mr-3"
+          />
+          <label htmlFor="emailNotification" className="text-sm text-gray-700">
+            Notify me by email when results are ready.
+          </label>
         </div>
       </div>
 

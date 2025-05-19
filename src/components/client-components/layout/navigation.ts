@@ -24,7 +24,7 @@ export const mainNavItems = [
   },
   {
     icon: Lightbulb,
-    label: 'Insights',
+    label: 'Memories',
     href: '/project/:id/insights'
   },
   {
@@ -37,7 +37,7 @@ export const mainNavItems = [
     label: 'Virtual VC',
     href: '/project/:id/virtual-vc/setup'
   },
-  
+
 ];
 
 export const backNavItem = {

@@ -123,7 +123,7 @@ export default function ManualInsights() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold">Manual Insights</h2>
+        <h2 className="text-2xl font-semibold">Team Memories</h2>
         <div className="flex space-x-4">
           <Select
             value={selectedCategory}
@@ -151,7 +151,7 @@ export default function ManualInsights() {
                 }}
               >
                 <Plus className="h-4 w-4 mr-2" />
-                Add Insight
+                Add Memory
               </Button>
             </DialogTrigger>
             <DialogContent>

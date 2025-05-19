@@ -24,7 +24,7 @@ export default function AIInsights() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-semibold">AI-Generated Insights</h2>
+        <h2 className="text-2xl font-semibold">AI-Generated Memories</h2>
         <Select
           value={selectedCategory}
           onValueChange={setSelectedCategory}
