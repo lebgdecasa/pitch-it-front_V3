@@ -88,7 +88,7 @@ export interface ChatMessage {
 export interface ChatPersona {
   id: string;
   name: string;
-  role: 'founder' | 'investor' | 'mentor' | 'customer' | 'user';
+  role: 'founder' | 'investor' | 'mentor' | 'customer' | 'user' | 'Freelance Animator and Content Creator' | 'Marketing Manager at a Tech Startup' | 'Independent Online Educator';
   avatarUrl?: string;
 }
 

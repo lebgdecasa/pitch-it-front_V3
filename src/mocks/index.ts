@@ -523,19 +523,19 @@ export const mockChatPersonas: ChatPersona[] = [
   {
     id: 'persona-1',
     name: 'Alan the Animator',
-    role: 'customer',
+    role: 'Freelance Animator and Content Creator',
     avatarUrl: '/assets/avatars/alex-chen.jpg'
   },
   {
     id: 'persona-2',
     name: 'Brenda the Branding Expert',
-    role: 'customer',
+    role: 'Marketing Manager at a Tech Startup',
     avatarUrl: '/assets/avatars/sarah-johnson.jpg'
   },
   {
     id: 'persona-3',
     name: 'Marcus the Content Creator',
-    role: 'customer',
+    role: 'Independent Online Educator',
     avatarUrl: '/assets/avatars/marcus-williams.jpg'
   },
   {
