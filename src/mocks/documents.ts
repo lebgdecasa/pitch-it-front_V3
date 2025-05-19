@@ -69,6 +69,17 @@ export const documents: Document[] = [
     isPublic: false,
     canPreview: true,
     status: ''
+  },
+  {
+    id: '6',
+    name: 'Project Details V1',
+    type: 'docx',
+    size: 1234567,
+    uploadDate: format(new Date('2023-12-28'), 'yyyy-MM-dd'),
+    url: '/documents/archived-project-details-v1.docx',
+    isPublic: false,
+    canPreview: true,
+    status: ''
   }
 ];
 
