@@ -3,29 +3,31 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, RefreshCw } from 'lucide-react';
+import { ChevronLeft, RefreshCw, Save } from 'lucide-react';
 import { Button } from '../../../components/ui/button';
 import EditableField from './EditableField';
 import { ProjectData, FieldEdit } from '../../../mocks/project-data';
 import { Card } from '@/ui/card';
 import { ProjectStage } from '../../../types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../components/ui/select';
-
+import VersionNameModal from './VersionNameModal'; // Import the modal
 
 interface ProjectEditorProps {
   project: ProjectData;
   onUpdate: (projectId: string, updates: { fields: any[], editHistory: FieldEdit[] }) => void;
-  projectStage?: ProjectStage; // Current project stage
-  projectId?: string; // Project ID for API calls
+  onSaveVersion: (versionName: string, projectData: { fields: any[], editHistory: FieldEdit[] }) => void;
+  projectStage?: ProjectStage;
+  projectId?: string;
 }
 
-export default function ProjectEditor({ project, onUpdate, projectStage = ProjectStage.PRE_SEED, projectId = "proj-001" }: ProjectEditorProps) {
+export default function ProjectEditor({ project, onUpdate, onSaveVersion, projectStage = ProjectStage.PRE_SEED, projectId = "proj-001" }: ProjectEditorProps) {
   const router = useRouter();
   const [fields, setFields] = useState(project.fields);
   const [editHistory, setEditHistory] = useState<FieldEdit[]>(project.editHistory);
   const [activeField, setActiveField] = useState<string | null>(null);
   const [stage, setStage] = useState<ProjectStage>(projectStage);
   const [isAnalysisRunning, setIsAnalysisRunning] = useState(false);
+  const [isVersionModalOpen, setIsVersionModalOpen] = useState(false); // State for modal visibility
 
   const handleSave = (fieldId: string, newValue: string) => {
     const field = fields.find(f => f.id === fieldId);
@@ -78,17 +80,38 @@ export default function ProjectEditor({ project, onUpdate, projectStage = Projec
     }, 3000);
   };
 
+  // Opens the modal
+  const handleOpenSaveVersionModal = () => {
+    setIsVersionModalOpen(true);
+  };
+
+  // Handles the submission from the modal
+  const handleVersionNameSubmit = (versionName: string) => {
+    onSaveVersion(versionName, { fields, editHistory });
+    setIsVersionModalOpen(false);
+    // Optionally, provide feedback to the user, e.g., a toast notification
+    alert(`Project version "${versionName}" saved!`);
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-6">
-        <Button
-          variant="ghost"
-          onClick={() => router.back()}
-          className="mb-4"
-        >
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          Back to Project
-        </Button>
+        <div className="flex justify-between items-center mb-4">
+          <Button
+            variant="ghost"
+            onClick={() => router.back()}
+          >
+            <ChevronLeft className="h-4 w-4 mr-1" />
+            Back to Project
+          </Button>
+          <Button
+            onClick={handleOpenSaveVersionModal} // Changed to open modal
+            variant="default"
+          >
+            <Save className="h-4 w-4 mr-1" />
+            Save Version
+          </Button>
+        </div>
         <h1 className="text-2xl font-bold">Edit Project Details</h1>
         <p className="text-gray-500">
           Update your project information. Some fields are locked to maintain project consistency.
@@ -176,6 +199,24 @@ export default function ProjectEditor({ project, onUpdate, projectStage = Projec
           </div>
         </div>
       )}
+
+      {/* Bottom Save changes button */}
+      <div className="mt-8 flex justify-end">
+        <Button
+          onClick={handleOpenSaveVersionModal} // Changed to open modal
+          variant="default"
+        >
+          <Save className="h-4 w-4 mr-1" />
+          Save Version
+        </Button>
+      </div>
+
+      {/* Modal for entering version name */}
+      <VersionNameModal
+        isOpen={isVersionModalOpen}
+        onClose={() => setIsVersionModalOpen(false)}
+        onSubmit={handleVersionNameSubmit}
+      />
     </div>
   );
 }

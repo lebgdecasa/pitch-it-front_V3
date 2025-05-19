@@ -30,11 +30,18 @@ export default function ProjectEditPage() {
     console.log('Updating project:', projectId, updates);
   };
 
+  const handleSaveVersion = (versionName: string, projectData: any) => {
+    // In a real app, this would make an API call to save the project version
+    console.log('Saving version:', versionName, projectData);
+    // You might want to update the context or re-fetch data here
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <ProjectEditor
         project={mockProjectData}
         onUpdate={handleProjectUpdate}
+        onSaveVersion={handleSaveVersion} // Pass the new handler
         projectStage={projectStage}
         projectId={projectId}
       />
