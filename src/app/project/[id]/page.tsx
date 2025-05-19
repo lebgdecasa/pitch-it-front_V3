@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ChevronLeft, Edit, Download, Users } from 'lucide-react';
+import { ChevronLeft, Edit, Download, Users, AlertTriangle, Lightbulb, Briefcase, Swords, Sparkles, Megaphone } from 'lucide-react';
 import ShareTeamDialog from '@/components/project/ShareTeamDialog';
 import ActionButtons from '../../../components/project/ActionButtons';
 import analysisByProjectId from '../../../mocks/analysis-data';
@@ -20,10 +20,13 @@ import { mockChatPersonas } from '../../../mocks';
 import { financialMetrics } from '../../../mocks/financial-metrics';
 
 // Component for showing pitch details in a clean way
-const PitchDetail = ({ label, value }: { label: string; value: string }) => (
+const PitchDetail = ({ label, value, icon: Icon, color }: { label: string; value: string; icon?: React.ElementType; color?: string }) => (
   <div className="mb-4">
-    <h4 className="text-sm font-medium text-gray-500 mb-1">{label}</h4>
-    <p className="text-gray-800">{value || "Not defined yet"}</p>
+    <div className="flex items-center mb-1">
+      {Icon && <Icon className={`h-4 w-4 mr-2 ${color || "text-gray-500"}`} />}
+      <h4 className="text-sm font-medium text-gray-500">{label}</h4>
+    </div>
+    <p className="text-gray-800 ml-6">{value || "Not defined yet"}</p>
   </div>
 );
 
@@ -251,13 +254,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
             )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
-              <PitchDetail label="Problem" value={project.pitch.problem} />
-              <PitchDetail label="Solution" value={project.pitch.solution} />
-              <PitchDetail label="Target Market" value={project.pitch.targetMarket} />
-              <PitchDetail label="Business Model" value={project.pitch.businessModel} />
-              <PitchDetail label="Competition" value={project.pitch.competition} />
-              <PitchDetail label="Unique Selling Point" value={project.pitch.uniqueSellingPoint} />
-              <PitchDetail label="Marketing Strategy" value={project.pitch.marketingStrategy} />
+              <PitchDetail label="Problem" value={project.pitch.problem} icon={AlertTriangle} color="text-red-300" />
+              <PitchDetail label="Solution" value={project.pitch.solution} icon={Lightbulb} color="text-blue-300" />
+              <PitchDetail label="Target Market" value={project.pitch.targetMarket} icon={Users} color="text-green-300" />
+              <PitchDetail label="Business Model" value={project.pitch.businessModel} icon={Briefcase} color="text-yellow-300" />
+              <PitchDetail label="Competition" value={project.pitch.competition} icon={Swords} color="text-purple-300" />
+              <PitchDetail label="Unique Selling Point" value={project.pitch.uniqueSellingPoint} icon={Sparkles} color="text-pink-300" />
+              <PitchDetail label="Marketing Strategy" value={project.pitch.marketingStrategy} icon={Megaphone} color="text-indigo-300" />
             </div>
           </div>
 
